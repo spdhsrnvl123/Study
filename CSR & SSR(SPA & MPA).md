@@ -21,7 +21,6 @@
 ## **CSR(client side Rendering)**
 
 - 클라이언트 측에서 렌더링 하는 방식.
--
 
 ## **SSR(Server side Rendering)**
 
