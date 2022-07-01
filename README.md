@@ -131,6 +131,8 @@ function hello_2(name: string | number) {
 }
 ```
 
+## ◈ Nomadercoders - 3
+
 ### call Signatures
 
 ```ts
@@ -187,10 +189,52 @@ type Add = {
   (a: number, b: number, c: number): number;
 };
 
-const add: Add = (a, b, c?: nuber) => {
+const add: Add = (a, b, c?: number) => {
   if (c) return a + b + c;
   return a + b;
 };
-console.log(add(1, 2));
-console.log(add(1, 2, 3));
+console.log(add(1, 2)); //3
+console.log(add(1, 2, 3)); //6
+```
+
+## ◈ Nomadercoders - 4
+
+### generic
+
+generic을 사용하는 이유)<br />
+개별적으로 타입을 지정해야 된다.
+
+```ts
+type SuperPrint = {
+  (arr: number[]): void;
+  (arr: boolean[]): void;
+  (arr: string[]): void;
+  (arr: (number | boolean)[]): void;
+};
+
+const superPrint: superPrint = (arr) => {
+  arr.forEach((i) => console.log(i));
+};
+superPrint([1, 2, 3, 4]);
+superPrint([true, false, true]);
+superPrint(["a", "b", "c"]);
+superPrint([1, 2, true, false]);
+```
+
+> call signature를 작성할 때, 들어올 확실한 타입을 모를 때 generic을 사용한다.<br />
+> generic을 사용하는 방법은, 먼저 타입스크립트에 generic을 사용하고 싶다고 알려줘야한다.
+
+```ts
+type SuperPrint = {
+  <T>(arr: T[]): void;
+};
+
+const superPrint: SuperPrint = (arr) => {
+  arr.forEach((i) => console.log(i));
+};
+
+superPrint([1, 2, 3, 4]);
+superPrint([true, false, true]);
+superPrint(["a", "b", "c"]);
+superPrint([1, 2, true, false, "hello"]);
 ```
