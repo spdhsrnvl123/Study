@@ -238,3 +238,40 @@ superPrint([true, false, true]);
 superPrint(["a", "b", "c"]);
 superPrint([1, 2, true, false, "hello"]);
 ```
+
+> superPrint의 리턴 타입을 바꾸고 싶다고 하면 superPrint는 배열을 받을거고 superPrint는 그 배열의 첫 번째 요소를 리턴하게 만들거다.
+
+```ts
+type SuperPrint = {
+  <T>(arr: T[]): T;
+};
+
+const superPrint: SuperPrint = (arr) => arr[0];
+
+const a = superPrint([1, 2, 3, 4]);
+const b = superPrint([true, false, true]);
+const c = superPrint(["a", "b", "c"]);
+const d = superPrint([1, 2, true, false, "hello"]);
+
+console.log(a); //1
+console.log(b); //true
+console.log(c); //"a"
+console.log(d); //1
+```
+
+> generic을 하나 더 추가하고 싶다면
+
+```ts
+type SuperPrint = {
+  <T, M>(a: T[], b: M): T;
+};
+
+const superPrint: SuperPrint = (a) => a[0];
+
+const a = superPrint([1, 2, 3, 4], "x");
+const b = superPrint([true, false, true], 1);
+const c = superPrint(["a", "b", "c"], false);
+const d = superPrint([1, 2, true, false, "hello"], []);
+
+console.log(a, b, c, d); //1,true,"a",1
+```
