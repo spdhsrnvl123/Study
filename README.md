@@ -275,3 +275,65 @@ const d = superPrint([1, 2, true, false, "hello"], []);
 
 console.log(a, b, c, d); //1,true,"a",1
 ```
+
+## ◈ Nomadercoders - 4
+
+### Classes
+
+추상(abstract)클래스<br />
+추상 클래스는 오직 다른 클래스가 상속받을 수 있는 클래스이다.<br />
+하지만, 직접 새로운 인스턴스를 만들 수는 없다.
+
+```ts
+abstract class User{
+    constructor(
+        private firstname : string,
+        private lastname : string,
+        public nickname : string
+    ){
+        abstract getNickname():void
+    }
+}
+
+class Player extends User{
+    //추상 메서드는 추상 클래스를 상속받는 클래스들이 반드시 구현(implement)해야 하는 메서드이다.
+    getNickname(){
+        console.log(this.nickname)
+    }
+}
+```
+
+- public : 모든 클래스에서 접근 가능.
+- private : 해당 클래스 내에서만 접근 가능(자식 클래스에서도 접근 불가)
+- protected : 해당 클래스와 자식 클래스에서 접근 가능.
+
+📌접근 가능한 위치
+
+<table>
+    <tr>
+        <th>구분</th>
+        <th>선언한 클래스 내</th>
+        <th>상속받은 클래스 내</th>
+        <th>인스턴스</th>
+    </tr>
+    <tr>
+        <td>private</td>
+        <td>⭕</td>
+        <td>❌</td>
+        <td>❌</td>
+    </tr>
+    <tr>
+        <td>protected</td>
+        <td>⭕</td>
+        <td>⭕</td>
+        <td>❌</td>
+    </tr>
+    <tr>
+        <td>public</td>
+        <td>⭕</td>
+        <td>⭕</td>
+        <td>⭕</td>
+    </tr>
+</table>
+
+https://www.typescriptlang.org/docs/handbook/2/classes.html
