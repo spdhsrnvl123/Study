@@ -301,6 +301,10 @@ class Player extends User{
         console.log(this.nickname)
     }
 }
+
+const  nico = Player("nico","las","니꼬");
+nico.getFullName()
+
 ```
 
 - public : 모든 클래스에서 접근 가능.
