@@ -276,9 +276,36 @@ const d = superPrint([1, 2, true, false, "hello"], []);
 console.log(a, b, c, d); //1,true,"a",1
 ```
 
-## ◈ Nomadercoders - 4
+## ◈ Nomadercoders - 5
 
 ### Classes
+
+**Constructor(생성자)**<br />
+객체지향 언어에는 Constructor 생성자가 있다.<br />
+모든 class는 Constructor라는 메서드를 가진다. class로 부터 객체를 생성할 때 호출되고 객체의 초기화를 담당.
+
+```ts
+class User{
+    name : string;
+    age : number;
+    address : string;
+
+    constructor(name:string,age:number,address:string){
+    // 클래스 프로퍼티에 값을 할당
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+    //class내에 정의된 함수는  method메서드라고 부른다.
+    printUserInfo = () : void =>{
+        console.log(`${this}의 나이는 ${this.age}이고 사는 곳은 ${this.address}입니다.`
+    }
+}
+let user1 = new User("allDay",28,"경기 의정부");
+user1.printUserInfo(); //allDay의 나이는 28이고 사는 곳은 경기 의정부입니다.
+```
+
+https://velog.io/@sji7532/TypeScript-Constructor%EC%99%80-%EC%A0%91%EA%B7%BC-%EC%A0%9C%ED%95%9C%EC%9E%90-Getter%EC%99%80-Setter
 
 추상(abstract)클래스<br />
 추상 클래스는 오직 다른 클래스가 상속받을 수 있는 클래스이다.<br />
@@ -291,7 +318,7 @@ abstract class User{
         private lastname : string,
         public nickname : string
     ){
-        abstract getNickname():void
+        abstract getNickname():void //call Signature
     }
 }
 
@@ -337,3 +364,120 @@ class Player extends User{
 </table>
 
 https://www.typescriptlang.org/docs/handbook/2/classes.html
+
+### **protected ex)**
+
+```ts
+abstract class User {
+  constructor(
+    protected firstName: string,
+    protected lastName: string,
+    protected nickname: string
+  ) {}
+
+  abstract getNickName(): void;
+
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+class Player extends User {
+  getNickName() {
+    console.log(this.nickname);
+  }
+}
+
+const nico = new Player("nico", "las", "니꼬");
+console.log(nico.getFullName()); //"nico las"
+```
+
+## ◈ Nomadercoders - 6
+
+## **`type and interface`**
+
+type : 여러가지로 용도로 활용이 가능하며 특정 타입을 지정할 수 있다.<br />
+interface : 오직 오브젝트 모양을 타입스크립트에게 설명해 주기 위해서만 사용되는 키워드이다.
+
+※ type Freiends = Array<string> -> string[]
+
+```ts
+type Team = "read" | "blue" | "yellow";
+type Health = 1 | 5 | 10;
+
+// interface Hello = string <- 작동 X
+
+interface Player {
+  nickname: string;
+  team: Team;
+  health: Health;
+}
+
+const nico: Player = {
+  nickname: "nico",
+  team: "blue",
+  health: 10,
+};
+```
+
+## **`interface X readonly 지정`**
+
+```ts
+interface User {
+  readonly name: string;
+}
+interface Player extends User {}
+
+const nico: Player = {
+  name: "nico",
+};
+
+// nico.name = "lalalala" -> error발생 : readonly때문에 작동X
+```
+
+## **`type 지정`**
+
+```ts
+type User = {
+  name: string;
+};
+type Player = User & {}; //&는 and를 의미.
+
+const nico: Player = {
+  name: "nico",
+};
+```
+
+## **`interface 특징으로는 property들을 축적시킬 수 있다.`**
+
+```ts
+interface User {
+  name: string;
+}
+interface User {
+  lastName: string;
+}
+interface User {
+  health: number;
+}
+
+const nico: User = {
+  name: "nco",
+  lastName: "n",
+  health: 10,
+};
+```
+
+```ts
+type User = {
+  name: string;
+};
+type User = {
+  lastName: string;
+};
+//중복-> type으로는 불가능
+```
+
+### ※ 타입스크립트에게 오브젝트의 모양을 알려줄때는 인터페이스를 사용하는걸 권장.
+
+### <span style="color:green">-> interface가 객체지향 프로그래밍처럼 보여서 이해하기 쉽기 때문. </span>
