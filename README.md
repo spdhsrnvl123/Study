@@ -278,9 +278,10 @@ console.log(a, b, c, d); //1,true,"a",1
 
 ## ◈ Nomadercoders - 5
 
-### Classes
+## **`Class`**
 
-**Constructor(생성자)**<br />
+### **Constructor(생성자)**<br />
+
 객체지향 언어에는 Constructor 생성자가 있다.<br />
 모든 class는 Constructor라는 메서드를 가진다. class로 부터 객체를 생성할 때 호출되고 객체의 초기화를 담당.
 
@@ -307,7 +308,8 @@ user1.printUserInfo(); //allDay의 나이는 28이고 사는 곳은 경기 의�
 
 https://velog.io/@sji7532/TypeScript-Constructor%EC%99%80-%EC%A0%91%EA%B7%BC-%EC%A0%9C%ED%95%9C%EC%9E%90-Getter%EC%99%80-Setter
 
-추상(abstract)클래스<br />
+### **abstract(추상클래스)**<br />
+
 추상 클래스는 오직 다른 클래스가 상속받을 수 있는 클래스이다.<br />
 하지만, 직접 새로운 인스턴스를 만들 수는 없다.
 
@@ -328,6 +330,8 @@ class Player extends User{
         console.log(this.nickname)
     }
 }
+
+// const user = new User() <-error(추상클래스)
 
 const  nico = Player("nico","las","니꼬");
 nico.getFullName()
@@ -395,6 +399,27 @@ class Player extends User {
 const nico = new Player("nico", "las", "니꼬");
 console.log(nico.getFullName()); //"nico las"
 ```
+
+```ts
+abstract class User {
+  constructor(protected firstName: string, protected lastName: string) {}
+  abstract sayHi(name: strng): string;
+  abstract fullName(): string;
+}
+
+class Player extends User {
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+  sayHi(name: string) {
+    return `Hello ${name}. My Name is ${this.fullName}`;
+  }
+}
+```
+
+### **<span style="color:red">「 타입스크립트에서 추상클래스는 결국 자바스크립트에서 일반 클래스로 변환된다.<br />그럼에도 추상클래스를 사용하는 이유는 다른 클래스들이 표준화된 property와 메서드를 갖도록 해주는 청사진을 만들기 위해 추상 클래스를 사용한다. 」**
+
+> **`결론 : 인터페이스를 써야 할 때다.`**
 
 ## ◈ Nomadercoders - 6
 
@@ -485,3 +510,48 @@ type User = {
 ### ※ 타입스크립트에게 오브젝트의 모양을 알려줄때는 인터페이스를 사용하는걸 권장.
 
 ### <span style="color:green">-> interface가 객체지향 프로그래밍처럼 보여서 이해하기 쉽기 때문. </span>
+
+## **interface features**
+
+- 오브젝트나 클래스의 모양을 묘사
+- 파일 사이즈↓
+- 고유한 사용처
+- 자바스크립트 코드로 컴파일X
+- 클래스가 특정 형태를 따르도록 강제
+
+```ts
+interface User {
+  fistName: string;
+  lastName: string;
+  sayHi(name: string): string;
+  fullName(): string;
+}
+
+//implement 자바스크립트에 없는 단어.
+//인터페이스를 상속할 때에는 property를 private으로 만들지 못한다.
+class Player implements User {
+  constructor(public firstName: string, public lastName: string) {}
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+  sayHi(name: string) {
+    return `Hello ${name}. My Name is ${this.fullName}`;
+  }
+}
+
+function makerUser(user: User): User {
+  return {
+    firstName: "nico",
+    lastName: "las",
+    fullName: () => "xx",
+    sayHi: (name) => "string",
+  };
+}
+//argument에 인터페이스를 사용함으로써 오브젝트의 모양을 지정해 줄 수도 있다.
+makeUser({
+  firstName: "nico",
+  lastName: "las",
+  fullName: () => "xx",
+  sayHi: (name) => "string",
+});
+```
