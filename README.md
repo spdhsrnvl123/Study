@@ -528,7 +528,7 @@ interface User {
 }
 
 //implement 자바스크립트에 없는 단어.
-//인터페이스를 상속할 때에는 property를 private으로 만들지 못한다.
+//인터페이스를 상속할 때에는 property를 private으로 만들지 못한다.->public을 사용해야한다.
 class Player implements User {
   constructor(public firstName: string, public lastName: string) {}
   fullName() {
@@ -554,4 +554,26 @@ makeUser({
   fullName: () => "xx",
   sayHi: (name) => "string",
 });
+```
+
+## ◈ Nomadercoders - 7
+
+## class X generic X interface
+
+```ts
+interface SStorage<T> {
+  [key: string]: T;
+}
+
+class LocalStorage<T> {
+  private storage: SStorage<T> = {};
+
+  set(key: string, value: T) {
+    this.storage[key] = value;
+  }
+}
+
+const stringStorage = new LocalStorage<string>();
+
+stringStorage.set("hello", "hello How are you");
 ```
