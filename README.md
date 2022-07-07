@@ -419,11 +419,11 @@ class Player extends User {
 
 ### **<span style="color:red">「 타입스크립트에서 추상클래스는 결국 자바스크립트에서 일반 클래스로 변환된다.<br />그럼에도 추상클래스를 사용하는 이유는 다른 클래스들이 표준화된 property와 메서드를 갖도록 해주는 청사진을 만들기 위해 추상 클래스를 사용한다. 」**
 
-> **`결론 : 인터페이스를 써야 할 때다.`**
+> **결론 : 인터페이스를 써야 할 때다.**
 
 ## ◈ Nomadercoders - 6
 
-## **`type and interface`**
+## **interface**
 
 type : 여러가지로 용도로 활용이 가능하며 특정 타입을 지정할 수 있다.<br />
 interface : 오직 오브젝트 모양을 타입스크립트에게 설명해 주기 위해서만 사용되는 키워드이다.
@@ -449,7 +449,7 @@ const nico: Player = {
 };
 ```
 
-## **`interface X readonly 지정`**
+## **interface X readonly 지정**
 
 ```ts
 interface User {
@@ -464,7 +464,7 @@ const nico: Player = {
 // nico.name = "lalalala" -> error발생 : readonly때문에 작동X
 ```
 
-## **`type 지정`**
+## **type 지정**
 
 ```ts
 type User = {
@@ -477,8 +477,6 @@ const nico: Player = {
 };
 ```
 
-## **`interface 특징으로는 property들을 축적시킬 수 있다.`**
-
 ```ts
 interface User {
   name: string;
@@ -489,6 +487,7 @@ interface User {
 interface User {
   health: number;
 }
+// property들을 축적
 
 const nico: User = {
   name: "nco",
@@ -518,6 +517,14 @@ type User = {
 - 고유한 사용처
 - 자바스크립트 코드로 컴파일X
 - 클래스가 특정 형태를 따르도록 강제
+- 타입으로 지정 가능
+- property들을 축적시킬 수 있다.
+- argument에 설정 가능 & return 가능<br />
+  단) 인터페이스를 return한다면, 타입을 return하는 것 처럼 new 다음 클래스명을 넣어줘야 하는 class 리턴과는 다르다. 만약 interface리턴 시, new User처럼 작성할 필요 없다.
+
+### **implements**
+
+implements을 사용하여 클래스가 특정 인터페이스를 충족하는지 확인할 수 있다. 클래스를 올바르게 구현하지 못하면 오류가 발생한다. implements절은 클래스가 인터페이스 유형으로 처리될 수 있는지 확인하는 것이다. 클래스의 유형이나 메서드는 전혀 변경하지 않습니다. 또한 클래스는 여러 인터페이스를 구현할 수도 있다.
 
 ```ts
 interface User {
@@ -527,19 +534,28 @@ interface User {
   fullName(): string;
 }
 
+interface Human {
+  health: number;
+}
+
 //implement 자바스크립트에 없는 단어.
 //인터페이스를 상속할 때에는 property를 private으로 만들지 못한다.->public을 사용해야한다.
-class Player implements User {
-  constructor(public firstName: string, public lastName: string) {}
+class Player implements User, Human {
+  constructor(
+    public firstName: string,
+    public lastName: string,
+    public health: number
+  ) {}
   fullName() {
     return `${this.firstName} ${this.lastName}`;
   }
   sayHi(name: string) {
-    return `Hello ${name}. My Name is ${this.fullName}`;
+    return `Hello ${name}. My Name is ${this.fullName()}`;
   }
 }
 
 function makerUser(user: User): User {
+  //new User{} -> X new User()같은걸 할 필요없음.
   return {
     firstName: "nico",
     lastName: "las",
@@ -556,9 +572,119 @@ makeUser({
 });
 ```
 
-## ◈ Nomadercoders - 7
+## class X interface
+
+```ts
+interface User {
+  firstName: string;
+  lastName: string;
+  sayHi(name: string): string;
+  fullName(): string;
+}
+
+interface Human {
+  health: number;
+}
+
+//하나 이상의 인터페이스를 동시에 상속가능.
+class Player implements User, Human {
+  constructor(public firstName: string, public lastName: string) {}
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+  sayHi(name: string) {
+    return `Hello ${name}. My name is ${this.fullName()}`;
+  }
+}
+```
+
+### **type vs interfaces**
+
+type
+
+```ts
+type PlayerA = {
+    name : string
+}
+//타입의 상속
+/*
+playerAA타입이 PlayerA타입과 lastName을 가지는 오브젝트를 합친 거라고 알려줘야한다.
+*/
+type PlayerAA = PlayerA & {
+    lastName : string
+}
+/*
+나중에 property를 타입에 추가하고 싶다면
+type PlayerAA = {
+    health : number
+}
+이런식으로는 불가능.
+이유 : PlayerAA타입이 이미 정의되어서 중복됨.
+*/
+const playerA : PlayerAA = {
+    name : "nico"
+    lastName : "xxx"
+}
+```
+
+interface
+
+```ts
+interface PlayerB {
+  name: string;
+}
+interface PlayerBB extends playerB {
+  lastName: string;
+}
+//인터페이스의 경우 아래 코드는 아무 문제 없다.
+interface PlayerBB {
+  health: number;
+}
+const playerB: PlayerBB = {
+  name: "nico",
+  lastName: "xxx",
+  health: 1,
+};
+```
+
+```ts
+//중복 상관 없음
+interface PlayerC {
+  name: string;
+}
+interface PlayerC {
+  lastName: string;
+}
+interface PlayerC {
+  health: number;
+}
+const PLayerC: PlayerC = {
+  name: "nico",
+  lastName: "xxx",
+  health: 1,
+};
+```
+
+interface,type abstract class 대체 가능
+
+```ts
+type PlayerA = {
+  firstName: string;
+};
+interface PlayerB {
+  firstName: string;
+}
+class User implements PlayerA {
+  constructor(public firstName: string) {}
+}
+```
 
 ## class X generic X interface
+
+- LocalStorage클래스를 초기화할 때, 타입스크립트에게 T라고 불리는
+  제네릭을 받을 계획이라고 알려준다.
+- 제네릭의 가장 중요한 특징은 `LocalStorage<T>`에 T제네릭을
+  다른 타입에게 물려줄 수 있다.
 
 ```ts
 interface SStorage<T> {
@@ -567,13 +693,27 @@ interface SStorage<T> {
 
 class LocalStorage<T> {
   private storage: SStorage<T> = {};
+  //T 제네릭을 interface로 보내준다.
 
   set(key: string, value: T) {
     this.storage[key] = value;
   }
+  get(key: string): T {
+    return this.storage[key];
+  }
+  remove(key: string) {
+    delete this.storage[key];
+  }
+  clear() {
+    this.storage = {};
+  }
 }
 
 const stringStorage = new LocalStorage<string>();
+//class + generic은 인스턴스를 만들어줄 때 타입을 명시해줘야된다.
 
 stringStorage.set("hello", "hello How are you");
+stringStorage.get("hello");
+stringStorage.remove("hello");
+stringStorage.clear();
 ```
