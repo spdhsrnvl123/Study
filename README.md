@@ -717,3 +717,30 @@ stringStorage.get("hello");
 stringStorage.remove("hello");
 stringStorage.clear();
 ```
+
+## ◈ Nomadercoders - Final
+
+- ### typescript 설치<br />
+  `npm i -D typescript`
+- ### package.json 초기화<br />
+  `npm init -y`
+- ### tsconfig.json설정<br />
+
+  `tsconfig.json은 TypeScript로 작업하는 것을 알게되고, 자동완성기능을 제공해준다.`
+
+  `디렉터리에 tsconfig.json파일이 있으면 해당 디렉터리가 TypeScript 프로젝트의 루트임을 나타낸다. tsconfig.json 파일은 프로젝트를 컴파일하는데 필요한 루트 파일과 컴파일러 옵션을 지정한다.`
+
+  https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#handbook-content
+
+- ### Target(기본값 : ES3)<br />
+  `최신 브라우저는 모든 ES6기능을 지원하므로 ES6는 좋은 선택이다. 코드가 이전 환경에 배포된 경우 더 낮은 target을 설정하거나 최신 환경에서 코드 실행이 보장되는 경우 더 높은 target을 설정하도록 선택할 수 있다.`<br /> ex)arrow function : ()=>this는 ES5이하이면 함수표현식으로 변경된다.
+
+### Lib
+
+타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는지를 지정할 수 있다.(target 런타임 환경이 무엇인지를 지정.)<br />
+프로그램이 브라우저에서 실행되면 lib에 "DOM" 유형 정의를 할 수 있다.<br />
+
+-> DOM : window,document 등<br />
+ex)"lib":["ES6","DOM"]
+
+https://www.typescriptlang.org/tsconfig#lib

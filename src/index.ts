@@ -1,0 +1,3 @@
+interface general {
+  real: string;
+}
