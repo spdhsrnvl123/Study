@@ -6,7 +6,7 @@
     "build": "tsc"
   },
   "repository": {
-    "type": "git",
+    "type": "dist/index.d.ts",
     "url": "git+https://github.com/spdhsrnvl123/TypeScript.git"
   },
   "keywords": [],
