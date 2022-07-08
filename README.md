@@ -207,7 +207,7 @@ type SuperPrint = {
   (arr: (number | boolean)[]): void;
 };
 
-const superPrint: superPrint = (arr) => {
+const superPrint: SuperPrint = (arr) => {
   arr.forEach((i) => console.log(i));
 };
 superPrint([1, 2, 3, 4]);
