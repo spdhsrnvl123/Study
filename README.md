@@ -217,7 +217,7 @@ superPrint([1, 2, true, false]);
 ```
 
 > call signature를 작성할 때, 들어올 확실한 타입을 모를 때 generic을 사용한다.<br />
-> generic을 사용하는 방법은, 먼저 타입스크립트에 generic을 사용하고 싶다고 알려줘야한다.
+> generic을 사용하는 방법은, 먼저 타입스크립트에게 generic을 사용하고 싶다고 알려줘야한다.
 
 ```ts
 type SuperPrint = {
