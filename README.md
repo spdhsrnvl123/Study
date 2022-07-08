@@ -176,7 +176,7 @@ const push: Push = (config) => {
 push("real");
 ```
 
-if)하나의 call Signature는 두개의 파라미터를 가지고 다른 하나는 6개의 파라미터를 가지는 경우
+if)하나의 call Signature는 두개의 파라미터를 가지고 다른 하나는 3개의 파라미터를 가지는 경우
 
 ```ts
 type Add = {
@@ -207,7 +207,7 @@ type SuperPrint = {
   (arr: (number | boolean)[]): void;
 };
 
-const superPrint: superPrint = (arr) => {
+const superPrint: SuperPrint = (arr) => {
   arr.forEach((i) => console.log(i));
 };
 superPrint([1, 2, 3, 4]);
@@ -217,7 +217,7 @@ superPrint([1, 2, true, false]);
 ```
 
 > call signature를 작성할 때, 들어올 확실한 타입을 모를 때 generic을 사용한다.<br />
-> generic을 사용하는 방법은, 먼저 타입스크립트에 generic을 사용하고 싶다고 알려줘야한다.
+> generic을 사용하는 방법은, 먼저 타입스크립트에게 generic을 사용하고 싶다고 알려줘야한다.
 
 ```ts
 type SuperPrint = {
