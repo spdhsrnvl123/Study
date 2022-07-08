@@ -176,7 +176,7 @@ const push: Push = (config) => {
 push("real");
 ```
 
-if)하나의 call Signature는 두개의 파라미터를 가지고 다른 하나는 6개의 파라미터를 가지는 경우
+if)하나의 call Signature는 두개의 파라미터를 가지고 다른 하나는 3개의 파라미터를 가지는 경우
 
 ```ts
 type Add = {
