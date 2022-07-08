@@ -15,8 +15,8 @@ https://typescript-kr.github.io/pages/interfaces.html
 ## ◈ Nomadercoders - 1
 
 ```ts
-type Age = number;
 type Name = string;
+type Age = number;
 
 //타입 지정
 type Player = {
