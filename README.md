@@ -20,30 +20,30 @@ ex)PlayerListRule규칙을 따르는 메이플 유저를
 ListAdd 함수를 이용하여 이름 또는 나이 객체에 삽입.
 */
 type Name = string;
-type Age = number
+type Age = number;
 
 type PlayerListRule = {
-    name : Name 
-    age ?: Age //Optional Properties
-}
+  name: Name;
+  age?: Age; //Optional Properties
+};
 
 //arrow function argument타입 지정.
-const ListAdd = (name: string,age:number):PlayerListRule=>({name,age})
+const ListAdd = (name: string, age: number): PlayerListRule => ({ name, age });
 
-const Leutbing = ListAdd("Leutbing",12);
+const Leutbing = ListAdd("Leutbing", 12);
 Leutbing.age = 18;
-console.log(Leutbing) //{"name":"Leutbing","age":18}
+console.log(Leutbing); //{"name":"Leutbing","age":18}
 
 //general function 타입 지정.
-function ListAdd_2(name:string):PlayerListRule{
-    return{ 
-     //객체에 넣어줌.
-     name
-    }
+function ListAdd_2(name: string): PlayerListRule {
+  return {
+    //객체에 넣어줌.
+    name,
+  };
 }
 
 const mongle = ListAdd_2("mongle");
-console.log(mongle) //{"name" : "mongle"}
+console.log(mongle); //{"name" : "mongle"}
 ```
 
 ## ◈ Nomadercoders - 2
@@ -739,3 +739,8 @@ stringStorage.clear();
 ex)"lib":["ES6","DOM"]
 
 https://www.typescriptlang.org/tsconfig#lib
+
+<hr />
+타입 정의 : 타입스크립트가 몇몇 자바스크립트 코드와 API의 타입을 설명.
+
+정의 파일 : 자바스크립트 코드의 모양을 타입스크립트에 설명해주는 파일.
