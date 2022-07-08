@@ -15,40 +15,35 @@ https://typescript-kr.github.io/pages/interfaces.html
 ## ◈ Nomadercoders - 1
 
 ```ts
+/*
+ex)PlayerListRule규칙을 따르는 메이플 유저를 
+ListAdd 함수를 이용하여 이름 또는 나이 객체에 삽입.
+*/
 type Name = string;
-type Age = number;
+type Age = number
 
-//타입 지정
-type Player = {
-  name: Name;
-  age?: Age; //Optional Properties
-};
-
-const nico: Player = {
-  name: "nico",
-};
-
-const lynn: Plyer = {
-  name: "lynn",
-  age: 12,
-};
-
-//일반 함수 argument타입 지정.
-function playerMaker(name: string): Player {
-  return {
-    //객체에 넣어줌.
-    name,
-  };
+type PlayerListRule = {
+    name : Name 
+    age ?: Age //Optional Properties
 }
-const nico = playerMaker("nico");
-nico.age = 12;
 
-// arrow function argument 타입 지정.
-const soccerMaker = (name: string): Player => ({ name });
+//arrow function argument타입 지정.
+const ListAdd = (name: string,age:number):PlayerListRule=>({name,age})
 
-const messi = soccerMaker("messi");
-messi.age = 12;
-console.log(messi); //{"name":"messi","age":12}
+const Leutbing = ListAdd("Leutbing",12);
+Leutbing.age = 18;
+console.log(Leutbing) //{"name":"Leutbing","age":18}
+
+//general function 타입 지정.
+function ListAdd_2(name:string):PlayerListRule{
+    return{ 
+     //객체에 넣어줌.
+     name
+    }
+}
+
+const mongle = ListAdd_2("mongle");
+console.log(mongle) //{"name" : "mongle"}
 ```
 
 ## ◈ Nomadercoders - 2
