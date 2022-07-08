@@ -1,3 +1,1 @@
-interface general {
-  real: string;
-}
+import { init } from "myPackage";
