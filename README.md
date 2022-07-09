@@ -733,7 +733,7 @@ stringStorage.clear();
 ### Lib
 
 타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는지를 지정할 수 있다.(target 런타임 환경이 무엇인지를 지정.)<br />
-프로그램이 브라우저에서 실행되면 lib에 "DOM" 유형 정의를 할 수 있다.<br />
+프로그램이 브라우저에서 실행되면 lib에 "DOM" 유형 정의를 할 수 있다.
 
 -> DOM : window,document 등<br />
 ex)"lib":["ES6","DOM"]
