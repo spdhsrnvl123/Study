@@ -28,8 +28,8 @@ type PlayerListRule = {
 };
 
 //arrow function argument타입 지정.
-/*ListAdd 함수에 매개변수(parameter)에는 개별적으로 타입을 지정
-ListAdd 함수에 반환 값은 따로 PlayerListRule이라는 type을 만들어 설정
+/*ListAdd 함수에 매개변수(parameter)에는 개별적으로 타입을 지정.
+ListAdd 함수에 반환 값은 따로 PlayerListRule이라는 type을 만들어 지정.
 */
 const ListAdd = (name: string, age: number): PlayerListRule => ({ name, age });
 
