@@ -519,7 +519,8 @@ type User = {
 
 ### **implements**
 
-implements을 사용하여 클래스가 특정 인터페이스를 충족하는지 확인할 수 있다. 클래스를 올바르게 구현하지 못하면 오류가 발생한다. implements절은 클래스가 인터페이스 유형으로 처리될 수 있는지 확인하는 것이다. 클래스의 유형이나 메서드는 전혀 변경하지 않습니다. 또한 클래스는 여러 인터페이스를 구현할 수도 있다.
+implements을 사용하여 클래스가 특정 인터페이스를 충족하는지 확인할 수 있다. 클래스를 올바르게 구현하지 못하면 오류가 발생한다.<br />
+implements절은 클래스가 인터페이스 유형으로 처리될 수 있는지 확인하는 것이다. 클래스의 유형이나 메서드는 전혀 변경하지 않습니다. 또한 클래스는 여러 인터페이스를 구현할 수도 있다.
 
 ```ts
 interface User {
@@ -719,7 +720,7 @@ stringStorage.clear();
   `npm i -D typescript`
 - ### package.json 초기화<br />
   `npm init -y`
-- ### tsconfig.json설정<br />
+- ## tsconfig.json설정<br />
 
   `tsconfig.json은 TypeScript로 작업하는 것을 알게되고, 자동완성기능을 제공해준다.`
 
@@ -727,20 +728,38 @@ stringStorage.clear();
 
   https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#handbook-content
 
-- ### Target(기본값 : ES3)<br />
-  `최신 브라우저는 모든 ES6기능을 지원하므로 ES6는 좋은 선택이다. 코드가 이전 환경에 배포된 경우 더 낮은 target을 설정하거나 최신 환경에서 코드 실행이 보장되는 경우 더 높은 target을 설정하도록 선택할 수 있다.`<br /> ex)arrow function : ()=>this는 ES5이하이면 함수표현식으로 변경된다.
+  - ### include
+    include의 배열에는, 자바스크립트로 컴파일하고 싶은 모든 디렉터리를 넣게 된다.
+  - ### ["src"]
+    타입스크립트가 src의 모든 파일을 확인한다는 것을 의미.
+  - ### outDir
+    자바스크립트 파일이 생성될 디렉터리를 지정.
+  - ### Target(기본값 : ES3)<br />
 
-### Lib
+    어느 버전의 자바스크립트로 타입스크립트를 컴파일하고 싶은지 정함.<br />
+    최신 브라우저는 모든 ES6기능을 지원하므로 ES6는 좋은 선택이다. 코드가 이전 환경에 배포된 경우 더 낮은 target을 설정하거나 최신 환경에서 코드 실행이 보장되는 경우 더 높은 target을 설정하도록 선택할 수 있다.<br />
+    ex)arrow function : ()=>this는 ES5이하이면 함수표현식으로 변경된다.
 
-타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는지를 지정할 수 있다.(target 런타임 환경이 무엇인지를 지정.)<br />
-프로그램이 브라우저에서 실행되면 lib에 "DOM" 유형 정의를 할 수 있다.
+  - ### Lib
 
--> DOM : window,document 등<br />
-ex)"lib":["ES6","DOM"]
+    타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는지를 지정할 수 있다.(target 런타임 환경이 무엇인지를 지정.)<br />
+    프로그램이 브라우저에서 실행되면 lib에 "DOM" 유형 정의를 할 수 있다.
 
-https://www.typescriptlang.org/tsconfig#lib
+    -> DOM : window,document 등<br />
+    ex)"lib":["ES6","DOM"]
+
+    https://www.typescriptlang.org/tsconfig#lib
+
+  - ### strict
+
+    모든 엄격한 타입 검사 옵션을 활성화한다.<br />
+    strict플래그는 프로그램 정확성을 더 강력하게 보장하는 광범위한 타입 검사 동작을 가능하게 한다.
+
+    https://www.typescriptlang.org/tsconfig#strict
 
 <hr />
-타입 정의 : 타입스크립트가 몇몇 자바스크립트 코드와 API의 타입을 설명.
+타입스크립트는 내장된 자바스크립트 API를 위한 기본적인 타입 정의를 가지고 있다.
 
-정의 파일 : 자바스크립트 코드의 모양을 타입스크립트에 설명해주는 파일.
+타입 정의 : 타입스크립트가 몇몇 자바스크립트 코드와 API의 타입을 설명. -> 뛰어난 개발자들이 타입스크립트에게 localStorage의 구조,아규먼트, 그리고 리턴 값과 리턴 타입을 설명 해준거다.
+
+정의 파일(d.ts) : 자바스크립트 코드의 모양을 타입스크립트에 설명해주는 파일.
