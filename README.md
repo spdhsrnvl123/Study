@@ -16,7 +16,7 @@ https://typescript-kr.github.io/pages/interfaces.html
 
 ```ts
 /*
-ex)PlayerListRule규칙을 따르는 메이플 유저를 
+ex)PlayerListRule규칙을 따르는 유저를 
 ListAdd 함수를 이용하여 이름 또는 나이 객체에 삽입.
 */
 type Name = string;
