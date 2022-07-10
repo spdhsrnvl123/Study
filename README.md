@@ -276,7 +276,7 @@ console.log(a, b, c, d); //1,true,"a",1
 
 ## ◈ Nomadercoders - 5
 
-## **`Class`**
+## **Class**
 
 ### **Constructor(생성자)**<br />
 
@@ -760,9 +760,20 @@ stringStorage.clear();
 
     https://www.typescriptlang.org/tsconfig#strict
 
-<hr />
-타입스크립트는 내장된 자바스크립트 API를 위한 기본적인 타입 정의를 가지고 있다.
+### ▶ 타입스크립트는 내장된 자바스크립트 API를 위한 기본적인 타입 정의를 가지고 있다.
 
-타입 정의 : 타입스크립트가 몇몇 자바스크립트 코드와 API의 타입을 설명. -> 뛰어난 개발자들이 타입스크립트에게 localStorage의 구조,아규먼트, 그리고 리턴 값과 리턴 타입을 설명 해준거다.
+- 타입 정의 : 타입스크립트가 몇몇 자바스크립트 코드와 API의 타입을 설명.<br />
+  -> 뛰어난 개발자들이 타입스크립트에게 localStorage의 구조,아규먼트, 그리고 리턴 값과 리턴 타입을 설명 해준거다.
 
-정의 파일(d.ts) : 자바스크립트 코드의 모양을 타입스크립트에 설명해주는 파일.
+- 정의 파일(d.ts) : 자바스크립트 코드의 모양을 타입스크립트에 설명해주는 파일.
+
+### @ts-check
+
+JavaScript 파일에서 오류를 활성화하려면 <span style="color:skyblue">//@ts-check</span>를 .js파일의 첫 번째 줄에 추가하여 TypeScript가 오류를 발생시키도록 한다.<br />
+TypeScript는 여러 오류를 제공할 수 있다.<br />
+이러한 오류를 무시하고 싶다면 <span style="color:skyblue">// @ts-ignore</span> 또는 <span style="color:skyblue">// @ts-expect-error</span>를 추가하여 특정 줄의 오류를 무시할 수 있다.
+
+### JSDoc Reference
+
+JSDoc 주석을 사용하여 JavaScript 파일에 type 정보를 제공할 수 있다.(자바스크립트 파일에서 타입 정보를 제공)
+https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
