@@ -75,3 +75,5 @@ disabled 속성은 불리언(boolean) 속성이다.<br />
 ```
 
 ![](/images/disabled.JPG)
+
+http://www.tcpschool.com/html-tag-attrs/input-disabled
