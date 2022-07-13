@@ -1,1 +1,1 @@
-# NomaderCoders React MasterClass
+# NomaderCoders-ReactMaster
