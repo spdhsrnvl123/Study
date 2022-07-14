@@ -1,4 +1,4 @@
-# Npm(node.js) = module 관리
+# Npm(node.js) - module 관리
 
 설치 및 업데이트 명령어에 버전(version)을 명시하지 않으면, **최신버전**으로 설치된다.
 
