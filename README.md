@@ -1,1 +1,1 @@
-# NomaderCoders-ReactMaster
+# React study
