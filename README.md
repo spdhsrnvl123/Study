@@ -12,7 +12,7 @@ Type Aliases을 사용하여 객체 타입뿐만 아니라 모든 타입에 이�
 
 https://typescript-kr.github.io/pages/interfaces.html
 
-## ◈ Nomadercoders - 1
+## ◈ 1
 
 ```ts
 /*
@@ -49,7 +49,7 @@ const mongle = ListAdd_2("mongle");
 console.log(mongle); //{"name" : "mongle"}
 ```
 
-## ◈ Nomadercoders - 2
+## ◈ 2
 
 ### readonly
 
@@ -129,7 +129,7 @@ function hello_2(name: string | number) {
 }
 ```
 
-## ◈ Nomadercoders - 3
+## ◈ 3
 
 ### call Signatures
 
@@ -195,7 +195,7 @@ console.log(add(1, 2)); //3
 console.log(add(1, 2, 3)); //6
 ```
 
-## ◈ Nomadercoders - 4
+## ◈ 4
 
 ### generic
 
@@ -274,7 +274,7 @@ const d = superPrint([1, 2, true, false, "hello"], []);
 console.log(a, b, c, d); //1,true,"a",1
 ```
 
-## ◈ Nomadercoders - 5
+## ◈ 5
 
 ## **Class**
 
@@ -419,7 +419,7 @@ class Player extends User {
 
 > **결론 : 인터페이스를 써야 할 때다.**
 
-## ◈ Nomadercoders - 6
+## ◈ 6
 
 ## **interface**
 
@@ -717,7 +717,7 @@ stringStorage.remove("hello");
 stringStorage.clear();
 ```
 
-## ◈ Nomadercoders - Final
+## ◈ Final
 
 - ### typescript 설치<br />
   `npm i -D typescript`
