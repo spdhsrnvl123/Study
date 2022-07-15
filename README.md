@@ -160,3 +160,8 @@ https://www.daleseo.com/js-web-storage/
 4. 테스트 셋업
 5. 빌드 셋업
 6. JS로 변환, 코드 용량 최소화, 프로덕션 라이브러리 설정 등
+
+## createGlobalStyle (전역 스타일을 처리함)
+
+전역 스타일을 처리하는 특수 styled Component를 생성하는 helper 함수이다.<br />
+https://styled-components.com/docs/api#createglobalstyle
