@@ -1,7 +1,7 @@
 # Promise
 
 Promise객체는 javascript에서 비동기 처리를 지원하는 객체 중 하나이다.<br />
-대표적으로 Promise 객체로 `fetch`함수가 있다.<br />
+대표적으로 Promise 객체로 `fetch()`가 있다.<br />
 
 ## ▶ fetch()
 
