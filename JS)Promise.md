@@ -1,4 +1,4 @@
-# Promise
+# 📘Promise
 
 Promise객체는 javascript에서 비동기 처리를 지원하는 객체 중 하나이다.<br />
 대표적으로 Promise 객체로 `fetch()`가 있다.<br />
@@ -43,7 +43,7 @@ promise는 then()을 사용할 수 있기 때문에 then()안에 또 then()이 �
 fetch("https://jsonplaceholder.typicode.com/posts")
   .then(function (response) {
     response.json().then(function (data) {
-      console.log("data".data);
+      console.log("data",data);
     });
   })
   .catch(function (reason) {
@@ -61,8 +61,8 @@ fetch("https://jsonplaceholder.typicode.com/posts")
   .then(function (response) {
     return response.json();
   })
-  .catch(function (reason) {
-    console.log("reason", reason);
+  .catch(function (response) {
+    console.log("response", response);
   })
   .then(function (data) {
     console.log("data", data);
