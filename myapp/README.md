@@ -39,3 +39,7 @@ function App() {
   );
 }
 ```
+
+### Crypto Icon API
+
+https://coinicons-api.vercel.app/

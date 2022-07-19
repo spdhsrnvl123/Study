@@ -22,6 +22,17 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
 `;
 
+const Loader = styled.span`
+  text-align: center;
+  display: block;
+`;
+
+const Img = styled.img`
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+`;
+
 const Coin = styled.li`
   background-color: white;
   color: ${(props) => props.theme.bgColor};
@@ -30,9 +41,10 @@ const Coin = styled.li`
   /* padding: 20px; */
 
   a {
+    display: flex;
+    align-items: center;
     padding: 20px;
     transition: color 0.2s ease-in;
-    display: block;
   }
   &:hover {
     a {
@@ -60,20 +72,16 @@ async랑 await이랑 다른 많은 것들을 사용하고 싶으니
 멋진 트릭 : 그 자리에서 function을 excute(실행)할 수 있다.
 */
 function Coins() {
-  const [coins, setCoins] = useState([]);
+  const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [loading, setLoading] = useState(true); //loading state
 
   //원한다면 Loader component추가
-  const Loader = styled.span`
-    text-align: center;
-    display: block;
-  `;
 
   useEffect(() => {
     (async () => {
       const response = await fetch("https://api.coinpaprika.com/v1/coins");
       const json = await response.json();
-      console.log(json);
+      //   console.log(json);
       setCoins(json.slice(0, 100));
       setLoading(false);
     })();
@@ -90,7 +98,13 @@ function Coins() {
         <CoinsList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+              <Link to={`/${coin.id}`} state={coin.name}>
+                {/* state를 보낸다. */}
+                <Img
+                  src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                />
+                {coin.name} &rarr;
+              </Link>
             </Coin>
           ))}
         </CoinsList>
