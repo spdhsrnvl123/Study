@@ -39,7 +39,3 @@ function App() {
   );
 }
 ```
-
-## api통신
-
-### fetch

@@ -53,14 +53,14 @@ interface CoinInterface {
 
 // 특정한 시기에만 코드를 실행하기 위해선 useEffect를 사용한다.
 
-/* 
+/* . 
 async랑 await이랑 다른 많은 것들을 사용하고 싶으니
 여기에 function 하나를 더 만들기는 싫고 모두 다 useEffect안에서 할 것이다.
 
 멋진 트릭 : 그 자리에서 function을 excute(실행)할 수 있다.
 */
 function Coins() {
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
+  const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true); //loading state
 
   //원한다면 Loader component추가
