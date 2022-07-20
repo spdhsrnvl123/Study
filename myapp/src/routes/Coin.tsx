@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -31,8 +31,8 @@ interface RouteParams {
 
 interface LocationParams {
   state: {
-    name?: string;
-    rank?: number;
+    name: string;
+    rank: number;
   };
 }
 
@@ -40,11 +40,12 @@ function Coin() {
   const [loading, setLoading] = useState(true);
   const { coinId } = useParams<keyof RouteParams>() as RouteParams;
   const { state } = useLocation() as LocationParams;
-  console.log(state);
+  console.log(state.name);
+
   return (
     <Container>
       <Header>
-        <Title>{state?.name || "Loading.."}</Title>
+        <Title>{state?.name || "Loading..."}</Title>
       </Header>
       {loading ? <Loader>Loading...</Loader> : null}
     </Container>

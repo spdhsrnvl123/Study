@@ -43,3 +43,17 @@ function App() {
 ### Crypto Icon API
 
 https://coinicons-api.vercel.app/
+
+---
+
+## react-router-dom v6부터 제네릭을 지원하지 않는다.
+
+```tsx
+interface ILocation {
+  state: {
+    name: string;
+  };
+}
+
+const { state } = useLocation() as ILocation;
+```
