@@ -34,70 +34,12 @@ Link 컴포넌트를 이용해서 state 보내기
 
 - React Router v5<br />
   ```jsx
-    <Link to = {{pathname:"/home",state:state}}>
+  <Link to = {{pathname:"/home",state:state}}>
   ```
 - React Router v6<br />
   ```jsx
   <Link to="/home" state={state} />
   ```
-
-## ✍ useLocation
-
-현재 URL 정보를 가져온다.<br />
-useLocation을 사용하기 위해서는 라우터 설치 필수
-
-```
-npm install react-router-dom
-```
-
-#### 사용방법
-
-1. useLocation을 import 한다. <br />
-   ```jsx
-   import { useLocation } from "react-router-dom";
-   ```
-2. 변수에 useLocation 정보를 담는다.
-   ```jsx
-   const location = useLocation();
-   ```
-3. console.log에서 출력해보고, 원하는 정보를 가져다 사용하면 된다.
-
-   ```jsx
-   const location = useLocation();
-
-   useEffect(() => {
-     console.log(locaiton);
-   }, [location]);
-   ```
-
-   출력결과
-   ![](/images/useLocation.JPG)
-
-- hash : 주소의 #문자열 뒤의 값
-- key : location 객체의 고유값, 초기값은 default 페이지가 변경될 때 마다 고유의 값이 생성된다.
-- pathname : 현재 주소 경로
-- search : ?를 포함한 쿼리스트링
-- state : 페이지로 이동시 임의로 넣을 수 있는 상태 값
-
-https://goddaehee.tistory.com/305
-
-useLocation에 타입지정하기(TypeScript)
-※ react-router-dom v6부터 제네릭을 지원하지 않는다.
-
-```tsx
-//Coins component
-<Link to={`/${coin.id}`} state={{ name: coin.name }}></Link>;
-//state안에 있는 객체값 url에 넘겨주기.
-
-//Coin component
-interface LoactionParams {
-  state: {
-    name: string;
-  };
-}
-
-const state = useLocation() as LocationParams;
-```
 
 ## CodeSandbox
 

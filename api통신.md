@@ -15,7 +15,6 @@ const res = async ()=>{
 useEffect(()=>{
     res()
 },[])
-
 ```
 
 ### 🚀즉시실행함수 방식
