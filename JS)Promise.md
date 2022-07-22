@@ -3,7 +3,7 @@
 Promise객체는 javascript에서 비동기 처리를 지원하는 객체 중 하나이다.<br />
 대표적으로 Promise 객체로 `fetch()`가 있다.<br />
 
-## ▶ fetch()
+## 📌 fetch()
 
 - fetch()는 네트워크 통신 함수이며 대표적으로 Promise 객체를 사용하는 함수이다.
 - fetch()의 Return 값은 Promise 데이터타입을 리턴한다.<br /> 그리고 이 Promise 데이터타입은 response Object를 돌려줄 것이다.
@@ -43,7 +43,7 @@ promise는 then()을 사용할 수 있기 때문에 then()안에 또 then()이 �
 fetch("https://jsonplaceholder.typicode.com/posts")
   .then(function (response) {
     response.json().then(function (data) {
-      console.log("data",data);
+      console.log("data", data);
     });
   })
   .catch(function (reason) {

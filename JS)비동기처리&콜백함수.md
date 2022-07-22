@@ -22,9 +22,9 @@
 ```js
 console.log("Hello World");
 
-setTime(function () {
+setTimeout(function () {
   console.log("Bye World");
-}, 10000);
+}, 1000);
 
 console.log("End World");
 ```
@@ -32,8 +32,8 @@ console.log("End World");
 출력
 
 - 'Hello World'출력
-- ~~10초 있다가 'Bye World'출력~~ -> 'End World'출력
-- ~~'End World'출력~~ -> 10초 있다가 'Bye World'출력
+- ~~1초 있다가 'Bye World'출력~~ -> 'End World'출력
+- ~~'End World'출력~~ -> 1초 있다가 'Bye World'출력
 
 setTimeout()은 비동기 방식으로 실행되기 때문에 10초를 기다리고 다음 코드를 실행하는것이 아니라 먼저 setTimeout()을 실행하고 나서 바로 다음 코드 실행하고 10초 뒤에 'Bye world'가 출력된다.
 
@@ -64,6 +64,8 @@ console.log(getData()); // undefined
 
 > callback 함수를 사용하면 된다.
 
+✍ JQuery Ajax 해결방법
+
 ```js
 function getData(callbackFunc) {
   $.get("https://domain.com/products/1", function (response) {
@@ -76,9 +78,31 @@ getData(function (storeData) {
 });
 ```
 
-콜백 함수를 사용하면 특정 로직이 끝났을 때 원하는 동작을 실행시킬 수 있다.
+✍ setTimeout() 해결방법
 
-## 콜백 함수 동작 방식(비유)
+```js
+console.log("Hello World");
+
+const update = (callbackFunc) => {
+  setTimeout(function () {
+    console.log("Bye World");
+    callbackFunc();
+  }, 1000);
+};
+const end = () => {
+  console.log("End World");
+};
+```
+
+- 'Hello World' 출력
+- 'Bye World' 출력
+- 'End World' 출력
+
+※ 참고 : https://www.daleseo.com/js-async-callback/
+
+#### 콜백 함수를 사용하면 특정 로직이 끝났을 때 원하는 동작을 실행시킬 수 있다.
+
+## 📌 콜백 함수 동작 방식(비유)
 
 콜백 함수의 동작 방식은 일종의 식당 자리 예약과 같다. 일반적으로 맛집을 가면 사람이 많아 자리가 없어서 대기자 명단에 이름을 쓴 다음에 자리가 날 때까지 주변 식당을 돌아다닌다. 만약 식당에서 자리가 생기면 전화로 자리가 났다고 연락이 온다. 그전화를 받는 시점이 여기서의 콜백 함수가 호출되는 시점과 같다. 손님 입장에서는 자리가 날 때까지 식당에서 기다리지 않고 근처 가게에서 잠깐 쇼핑을 할 수도 있고 아니면 다른 식당 자리를 알아 볼 수도 있다.
 
@@ -174,3 +198,32 @@ var hello = function(){
 hello(); //Hello World!
 </script>
 ```
+
+## 콜백지옥 (callback hell)
+
+콜백지옥은 비동기 처리 로직을 위해 콜백 함수를 연속해서 사용할 때 발생하는 문제이다.
+
+```js
+function fn() {
+  setTimeout(() => {
+    console.log("하나");
+    setTimeout(() => {
+      console.log("둘");
+      setTimeout(() => {
+        console.log("셋");
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}
+
+fn(); //'하나','둘','셋'
+```
+
+- 콜백지옥(callback hell)이란 콜백함수 익명 함수로 전달하는 과정에서 또 다시 콜백 안에 함수 호출이 반복되어 코드의 들여쓰기 수준이 감당하기 힘들 정도로 깊어지는 현상을 만한다.
+- 주로 이벤트 처리나 서버 통신과 같은 비동기 작업을 제어하기 위해서 사용되는데 이러한 프로그래밍은 가독성이 떨어지고 코드 수정을 어렵게 한다.
+
+## ⚡️ Best Solution
+
+### 1. Promise
+
+### 2. Promise + async/await
