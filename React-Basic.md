@@ -165,3 +165,20 @@ https://www.daleseo.com/js-web-storage/
 
 전역 스타일을 처리하는 특수 styled Component를 생성하는 helper 함수이다.<br />
 https://styled-components.com/docs/api#createglobalstyle
+
+# Fragment
+
+일종의 유령 컴포넌트 이다.
+
+```jsx
+function App() {
+  return (
+    <>
+      {" "}
+      {/* Fragment */}
+      <GlobalStyle />
+      <Router />
+    </>
+  );
+}
+```

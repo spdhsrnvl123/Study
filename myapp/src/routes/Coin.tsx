@@ -110,22 +110,22 @@ function Coin() {
   const [info, setInfo] = useState<InfoData>(); //info는 빈 객체로 인식한다.
   const [priceInfo, setPriceInfo] = useState<PriceData>(); //priceInfo는 빈 객체로 인식한다.
 
-  const update = async () => {
-    const infoData = await axios(
-      `https://api.coinpaprika.com/v1/coins/${coinId}`
-    );
-    console.log(infoData.data);
-    const priceData = await axios(
-      `https://api.coinpaprika.com/v1/tickers/${coinId}`
-    );
-    console.log(priceData.data);
-    // setInfo(infoData);
-    // setPriceInfo(priceData);
-  };
-
   useEffect(() => {
-    update();
-  }, []);
+    (async () => {
+      const infoData = await axios(
+        `https://api.coinpaprika.com/v1/coins/${coinId}`
+      );
+      console.log(infoData.data);
+      const priceData = await axios(
+        `https://api.coinpaprika.com/v1/tickers/${coinId}`
+      );
+      console.log(priceData.data);
+
+      setInfo(infoData.data);
+      setPriceInfo(priceData.data);
+      //   setLoading(false);
+    })();
+  }, [coinId]);
 
   return (
     <Container>
