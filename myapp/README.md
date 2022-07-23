@@ -1,11 +1,11 @@
 # CRA x typescript install
 
-`npx create-react-app my-app --template typescript` <br />
+npx create-react-app my-app --template typescript <br />
 https://create-react-app.dev/docs/adding-typescript/
 
 # typescript x styled-components install
 
-`npm install --save @types/styled-components` <br />
+npm install --save @types/styled-components <br />
 https://www.npmjs.com/package/@types/styled-components
 
 # Flat UI Color
@@ -25,11 +25,11 @@ https://styled-components.com/docs/api#createglobalstyle
 
 # Open API
 
-### Crypto Icon API
+## Crypto Icon API
 
 https://coinicons-api.vercel.app/
 
-### Coin API
+## Coin API
 
 coin id로 코인 받기 (Coins)
 
@@ -41,25 +41,6 @@ coin id로 특정 코인에 대한 시세 정보 얻기 (Tickers)
 https://api.coinpaprika.com/v1/tickers/btc-bitcoin <br />
 https://api.coinpaprika.com/#operation/getTickersById
 
-# react-router-dom X TypeScript
+# JSON데이터를 타입스크립트 타입으로 빠르게 변환시켜주는 사이트<br />
 
-- useState 타입지정
-
-※ react-router-dom v6부터 제네릭을 지원하지 않는다.
-
-- usefarams 타입지정
-- useLocation 타입지정
-
-```tsx
-interface ILocation {
-  //interface 타입 지정할때 앞에 I를 붙이기도 한다.
-  state: {
-    name: string;
-  };
-}
-
-const { state } = useLocation() as ILocation;
-```
-
-JSON데이터를 타입스크립트 타입으로 빠르게 변환시켜주는 사이트<br />
 https://app.quicktype.io/?l=ts
