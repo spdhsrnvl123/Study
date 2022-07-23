@@ -1,0 +1,14 @@
+Object.keys(temp1)
+
+Object.keys(temp1).join()
+
+Object.values(temp1)
+
+Object.values(temp1).map(v => typeof v).join()
+
+데이터통신을 하여 type들을 받아오고 싶다면 위 처럼 명령어를 작성하여
+typescript에게 하나씩 설명해줄 수도 있다.
+하지만 큰 결점이 있다. array가 있기만 하면 직접 그게 뭔지 interface
+더 추가하여 설명해줘야한다.
+
+그래서
