@@ -49,9 +49,9 @@ const Header = styled.header`
   align-items: center;
 `;
 
-interface RouteParams {
-  coinId: string;
-}
+// interface RouteParams {
+//   coinId: string;
+// }
 
 interface LocationParams {
   state: {
@@ -130,7 +130,6 @@ function Coin() {
   const [loading, setLoading] = useState(true);
   const { coinId } = useParams();
   const { state } = useLocation() as LocationParams;
-  //   console.log(state.name);
   const [info, setInfo] = useState<InfoData>(); //info는 빈 객체로 인식한다.
   const [priceInfo, setPriceInfo] = useState<PriceData>(); //priceInfo는 빈 객체로 인식한다.
 
@@ -159,12 +158,6 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : info?.name}
         </Title>
-        {/* <Title>{state?.name || "Loading..."}</Title> */}
-        {/* 만약 state가 거기 없거나 undefined이거나 존재하지 않거나
-              그럼 name에 대해 요구하지 않게 될것이다.(?기능)
-              '?'빼면 있던 없던 항상 요구하게 되는 것이다.
-                결론 : state가 존재하는 경우에만 max_supply를 찾게 된다.
-              */}
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
