@@ -12,7 +12,7 @@ Type Aliases을 사용하여 객체 타입뿐만 아니라 모든 타입에 이�
 
 https://typescript-kr.github.io/pages/interfaces.html
 
-## ◈ Nomadercoders - 1
+## ◈ 1
 
 ```ts
 /*
@@ -49,7 +49,7 @@ const mongle = ListAdd_2("mongle");
 console.log(mongle); //{"name" : "mongle"}
 ```
 
-## ◈ Nomadercoders - 2
+## ◈ 2
 
 ### readonly
 
@@ -106,7 +106,10 @@ function hell() {
 }
 ```
 
-### never
+### Never
+naver 타입은 절대 발생할 수 없는 타입을 나타낸다. 예를 들어, never는 함수 표현식이나 화살표 함수 표현식에서 항상 오류를 발생시키거나 절대 반환하지 않는 반환 타입으로 쓰인다. 변수 또한 타입 가드에 의해 아무 타입도 얻지 못하게 좁혀지면 never타입을 얻게 될 수 있다.
+
+never 타입은 모든 타입에 할당 가능한 하위 타입이다. 하지만 어떤 타입도 never에 할당할 수 있거나,하위 타입이 아니다.(never자신은 제외) 심지어 any도 never에 할당 할 수 없다.
 
 함수가 절대 return하지 않을 때 발생.
 ex)함수에서 exception(예외) 발생할 때.
@@ -128,8 +131,10 @@ function hello_2(name: string | number) {
   } //여기에 뭘 작성하든 이 타입은 never가 될 거다.
 }
 ```
+-- --
 
-## ◈ Nomadercoders - 3
+
+## ◈ 3
 
 ### call Signatures
 
@@ -195,7 +200,7 @@ console.log(add(1, 2)); //3
 console.log(add(1, 2, 3)); //6
 ```
 
-## ◈ Nomadercoders - 4
+## ◈ 4
 
 ### generic
 
@@ -274,7 +279,15 @@ const d = superPrint([1, 2, true, false, "hello"], []);
 console.log(a, b, c, d); //1,true,"a",1
 ```
 
-## ◈ Nomadercoders - 5
+### generic X State
+useState\<number> ()
+
+state의 type을 지정하려면 generics안에 타입을 지정.<br />
+일반적으로는 초기값을 지정하면 타입스크립트가 자동으로 타입을 유추하기 때문에 굳이 지정해주지 않아도 되지만 상태가 undefined 또는 null이 될 수도 있거나 객체 또는 배열일 때는 지정해주는 것이 좋다.
+
+ex) const [value,setValue] = useState<Value|null>(null);
+
+## ◈ 5
 
 ## **Class**
 
@@ -419,7 +432,7 @@ class Player extends User {
 
 > **결론 : 인터페이스를 써야 할 때다.**
 
-## ◈ Nomadercoders - 6
+## ◈ 6
 
 ## **interface**
 
@@ -717,7 +730,7 @@ stringStorage.remove("hello");
 stringStorage.clear();
 ```
 
-## ◈ Nomadercoders - Final
+## ◈ Final
 
 - ### typescript 설치<br />
   `npm i -D typescript`
