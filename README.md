@@ -632,7 +632,7 @@ interface
 interface PlayerB {
   name: string;
 }
-interface PlayerBB extends playerB {
+interface PlayerBB extends PlayerB {
   lastName: string;
 }
 //인터페이스의 경우 아래 코드는 아무 문제 없다.
@@ -733,8 +733,8 @@ stringStorage.clear();
 
   - ### include
     include의 배열에는, 자바스크립트로 컴파일하고 싶은 모든 디렉터리를 넣게 된다.
-  - ### ["src"]
-    타입스크립트가 src의 모든 파일을 확인한다는 것을 의미.
+    - ["src"]
+      타입스크립트가 src의 모든 파일을 확인한다는 것을 의미.
   - ### outDir
     자바스크립트 파일이 생성될 디렉터리를 지정.
   - ### Target(기본값 : ES3)<br />
@@ -772,6 +772,7 @@ stringStorage.clear();
 JavaScript 파일에서 오류를 활성화하려면 <span style="color:skyblue">//@ts-check</span>를 .js파일의 첫 번째 줄에 추가하여 TypeScript가 오류를 발생시키도록 한다.<br />
 TypeScript는 여러 오류를 제공할 수 있다.<br />
 이러한 오류를 무시하고 싶다면 <span style="color:skyblue">// @ts-ignore</span> 또는 <span style="color:skyblue">// @ts-expect-error</span>를 추가하여 특정 줄의 오류를 무시할 수 있다.
+https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html#ts-check
 
 ### JSDoc Reference
 

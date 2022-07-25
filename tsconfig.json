@@ -6,6 +6,6 @@
     "target": "ES6",
     "lib": ["ES6", "dom"],
     "strict": true,
-    "allowJs": true
+    "allowJs": true // 타입스크립트 안에 자바스크립트를 허용
   }
 }
