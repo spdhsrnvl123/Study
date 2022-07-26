@@ -162,11 +162,10 @@ function Coin() {
   const [info, setInfo] = useState<InfoData>(); //info는 빈 객체로 인식한다.
   const [priceInfo, setPriceInfo] = useState<PriceData>(); //priceInfo는 빈 객체로 인식한다.
 
-  console.log(coinId);
-
   const priceMatch = useMatch("/:coinId/price");
   console.log(priceMatch);
   const chartMatch = useMatch("/:coinId/chart");
+  console.log(chartMatch);
 
   useEffect(() => {
     (async () => {
