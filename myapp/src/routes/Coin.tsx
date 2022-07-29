@@ -172,7 +172,7 @@ function Coin() {
       const infoData = await axios(
         `https://api.coinpaprika.com/v1/coins/${coinId}`
       );
-      //   console.log(infoData.data);
+      console.log(infoData.data);
 
       const priceData = await axios(
         `https://api.coinpaprika.com/v1/tickers/${coinId}`
