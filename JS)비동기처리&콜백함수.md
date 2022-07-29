@@ -224,8 +224,12 @@ fn(); //'하나','둘','셋'
 
 ## ⚡️ Best Solution
 ### **비동기(setTimeout,setInterval...)**
--> 동기처리 콜백함수 사용(단,콜백지옥 발생가능↑)
+```
+> 동기처리 callback 사용(단,callback hell 발생가능↑)
+```
 ### **비동기(데어터 처리)**
+```
 -> Promise + then/catch
 -> Promise + async/await
 -> axios(React) + async/await
+```
