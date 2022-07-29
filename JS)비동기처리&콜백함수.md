@@ -223,7 +223,9 @@ fn(); //'하나','둘','셋'
 - 주로 이벤트 처리나 서버 통신과 같은 비동기 작업을 제어하기 위해서 사용되는데 이러한 프로그래밍은 가독성이 떨어지고 코드 수정을 어렵게 한다.
 
 ## ⚡️ Best Solution
-
-### 1. Promise
-
-### 2. Promise + async/await
+### **비동기(setTimeout,setInterval...)**
+-> 동기처리 콜백함수 사용(단,콜백지옥 발생가능↑)
+### **비동기(데어터 처리)**
+-> Promise + then/catch
+-> Promise + async/await
+-> axios(React) + async/await
