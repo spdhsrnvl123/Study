@@ -112,10 +112,10 @@ const end = () => {
 https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
 
 ### callback
-
 - callback 함수란 이름 그대로 나중에 호출되는 함수를 말한다.
 - 콜백함수라고 해서 그 자체로 특별한 선언문이나 문법적 특징을 가지고 있지는 않다.
 - 콜백함수도 일반적인 자바스크립트 함수이다.
+- 다른 함수(A)의 인자로 콜백함수(B)를 전달하면 A가 B의 제어권을 갖게된다.
 - 어떤 이벤트가 발생했거나 특정 시점에 도달했을 때 시스템에서 호출하는 함수이다.
 
 ```js
@@ -225,9 +225,22 @@ fn(); //'하나','둘','셋'
 - 주로 이벤트 처리나 서버 통신과 같은 비동기 작업을 제어하기 위해서 사용되는데 이러한 프로그래밍은 가독성이 떨어지고 코드 수정을 어렵게 한다.
 
 ## ⚡️ Best Solution
+<<<<<<< HEAD
 
 ### 1. Promise
 
 ### 2. Promise + async/await
 
 🧐 https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
+=======
+### **비동기(setTimeout,setInterval...)**
+```
+> 동기처리 callback 사용(단,callback hell 발생가능↑)
+```
+### **비동기(데어터 처리)**
+```
+> Promise + then/catch
+> Promise + async/await
+> axios(React) + async/await
+```
+>>>>>>> 89351384e2cc6bf425d9dcabc031c074654cbe69
