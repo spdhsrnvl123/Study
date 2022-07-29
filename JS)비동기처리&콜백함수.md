@@ -1,4 +1,4 @@
-# 📘비동기 처리(asynchronous) & 콜백함수
+# 📖비동기 처리(asynchronous) & 콜백함수
 
 ## 📌동기 처리(synchronous)
 
@@ -89,6 +89,8 @@ const update = (callbackFunc) => {
     callbackFunc();
   }, 1000);
 };
+update(end);
+
 const end = () => {
   console.log("End World");
 };
@@ -106,7 +108,7 @@ const end = () => {
 
 콜백 함수의 동작 방식은 일종의 식당 자리 예약과 같다. 일반적으로 맛집을 가면 사람이 많아 자리가 없어서 대기자 명단에 이름을 쓴 다음에 자리가 날 때까지 주변 식당을 돌아다닌다. 만약 식당에서 자리가 생기면 전화로 자리가 났다고 연락이 온다. 그전화를 받는 시점이 여기서의 콜백 함수가 호출되는 시점과 같다. 손님 입장에서는 자리가 날 때까지 식당에서 기다리지 않고 근처 가게에서 잠깐 쇼핑을 할 수도 있고 아니면 다른 식당 자리를 알아 볼 수도 있다.
 
-자리가 났을 때만 연락이 오기 때문에 미리 가서 기다릴 필요도 없고 직접 식당 안에 들어가서 자리가 비어 있는지 확인할 필요도 없다. 자리가 준비된 시점, 즉 데이터가 준비된 시점에서만 저희가 원하는 동작(자리에 앉는다, 특정 값을 출력한다 등)을 수행할 수 있다.
+자리가 났을 때만 연락이 오기 때문에 미리 가서 기다릴 필요도 없고 직접 식당 안에 들어가서 자리가 비어 있는지 확인할 필요도 없다. 자리가 준비된 시점, 즉 데이터가 준비된 시점에서만 저희가 원하는 동작(자리에 앉는다, 특정 값을 출력한다 등)을 수행할 수 있다.<br />
 https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/
 
 ### callback
@@ -227,3 +229,5 @@ fn(); //'하나','둘','셋'
 ### 1. Promise
 
 ### 2. Promise + async/await
+
+🧐 https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/

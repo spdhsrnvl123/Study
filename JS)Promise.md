@@ -1,4 +1,4 @@
-# 📘Promise
+# 📖Promise
 
 Promise객체는 javascript에서 비동기 처리를 지원하는 객체 중 하나이다.<br />
 대표적으로 Promise 객체로 `fetch()`가 있다.<br />
@@ -18,18 +18,18 @@ Promise객체는 javascript에서 비동기 처리를 지원하는 객체 중 �
     - 비동기 작업에 실패했을 때 수행하는 코드 작성
     - err에는 에러 관련 정보들이 들어있다.
 
-### **.then(function(response){})**
+### 📌 **.then(function(response){})**
 
 - response 파라미터에 안에는 여러가지 정보(서버와 통신결과,서버와 어떤 데이터를 통신했는지 등)가 저장 되어있다.
 
-### **response.json()**
+### 📌 **response.json()**
 
 1. api문서에 있는 텍스트를 json데이터타입이라는 것을 자바스크립트에게 알려준다.
 2. 웹 브라우저는 json데이터타입에 맞게 그 데이터를 해석해서 자바스크립트 데이터 타입으로 돌려주게 된다.
 3. response.json 리턴값은 promise객체가 반환된다.
 4. 결론 : response.json()은 promise이다.
 5. 반환된 promise 역할은 json텍스트를 자바스크립트 데이터타입으로 컨버팅하는 프로미스이다.
-6. 이 프로미스는 이 컨버팅작업이 끝났을때 then을 호출하는 것이다.
+6. 이 프로미스는 컨버팅작업이 끝났을때 then을 호출하는 것이다.
 7. response.json()은 promise이므로 then을 사용가능
 
 ### promise를 사용하는 방법은 두가지 방법이 있다.
@@ -37,7 +37,7 @@ Promise객체는 javascript에서 비동기 처리를 지원하는 객체 중 �
 #### 🚀**First**
 
 **Nested방식**<br />
-promise는 then()을 사용할 수 있기 때문에 then()안에 또 then()이 들어가고 다시 또 then()이 들어가 는 방식
+promise는 then()을 사용할 수 있기 때문에 then()안에 또 then()이 들어가고 다시 또 then()이 들어가는 방식
 
 ```js
 fetch("https://jsonplaceholder.typicode.com/posts")
