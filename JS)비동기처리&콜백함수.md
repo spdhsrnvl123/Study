@@ -229,7 +229,7 @@ fn(); //'하나','둘','셋'
 ```
 ### **비동기(데어터 처리)**
 ```
--> Promise + then/catch
--> Promise + async/await
--> axios(React) + async/await
+> Promise + then/catch
+> Promise + async/await
+> axios(React) + async/await
 ```
