@@ -1,4 +1,4 @@
-# TypeScript
+# 🎉TypeScript
 
 ## Type Aliases
 
