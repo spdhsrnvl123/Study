@@ -5,6 +5,14 @@
 
 상황 : 노트북을 맥북으로 교체하면서 깃허브에 있는 레파지토리들을 맥북에 클론하여 클론한 로컬 프로젝트를 강제로 pull을 하여 로컬저장소와 원격저장소를 이어주었다. 하지만, 로컬저장소에서 커밋하고 원격저장소에 정상적으로 push가 가능하지만 원격 저장소에서는 커밋 시 에는 로컬저장소에서 pull을 하면 에러가 발생한다.
 
+해결방법 : 
+
+#### git rebase란?
+https://seosh817.tistory.com/240
+
+#### git pull 이란?
+https://backlog.com/git-tutorial/kr/stepup/stepup3_1.html
+
 #### git clone 후 다시 git push하기
 https://oddcode.tistory.com/99
 
