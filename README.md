@@ -1037,3 +1037,976 @@ typeof 1 / 0; // NaN
 - 호이스팅이란 "끌어올린다" 라는 뜻으로 **변수 및 함수 선언문이 스코프 내의 최상단으로 끌어올려지는 현상** 을 말합니다. 여기서 주의할 점은 **"선언문"** 이라는 것이며 "대입문"은 끌어올려지지 않습니다. ([호이스팅이란? 글 보러가기](https://github.com/Esoolgnah/Frontend-Interview-Questions/blob/main/Notes/important-5/hoisting.md))
   <br>
 
+# HTML 렌더링 중에 JavaScript가 실행되면 렌더링이 멈추는 이유
+
+렌더링 엔진은 HTML 한 줄씩 순차적으로 [파싱](#gear-파싱)하며 [DOM](#gear-dom)을 생성해 나가다가 JavaScript를 만나면 DOM 생성을 임시 중단합니다.
+
+DOM 생성을 임시 중단하고, 자바스크립트 코드를 파싱하기 위해 자바스크립트 엔진에 제어권을 넘기게 되는데, 파싱이 끝나면 다시 렌더링 엔진에 제어권을 넘겨 중단된 부분부터 HTML 파싱을 재개하며 DOM 트리를 생성합니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 파싱
+
+- 파싱은 하나의 프로그램을 런타임 환경(예를 들면, 브라우저 내 자바스크립트 엔진)이 실제로 실행할 수 있는 내부 포맷으로 분석하고 변환하는 것을 의미합니다. 즉, 파싱은 문서의 내용을 토큰(token)으로 분석하고, 문법적 의미와 구조를 반영한 파스 트리(parse tree)를 생성하는 과정입니다.
+
+### :gear: DOM
+
+- **DOM(Document Object Model)이란?** 웹 페이지를 이루는 태그들을 자바스크립트가 이용할 수 있게끔 브라우저가 트리구조로 만든 객체 모델을 의미합니다. 영어 뜻풀이 그대로 하자면 문서 객체 모델을 의미합니다. 문서 객체란 html, head, body와 같은 태그들을 javascript가 이용할 수 있는 (메모리에 보관할 수 있는) 객체를 의미합니다. DOM은 HTML과 스크립팅 언어(JavaScript)를 서로 이어주는 역할을 합니다.
+
+<br>
+
+# require와 import의 차이점
+
+- `require`는 [CommonJS](#gear-commonjs)를 사용하는 node.js문이지만 `import`는 ES6에서만 사용됩니다.
+- `require`는 파일(non-lexical,비어휘적)에 저장된 위치에 남아 있으며 `import`는 항상 맨 위로 이동합니다.
+- `require`는 프로그램의 어느 지점에서나 호출 할 수 있지만 `import`는 파일의 시작 부분에서만 실행할 수 있습니다. (하지만 import전용 비동기 문법으로 처리 가능)
+- 일반적으로 `import`는 사용자가 필요한 모듈 부분만 선택하고 로드 할 수 있기 때문에 더 선호됩니다. 이 명령문은 `require`보다 성능이 우수하며 메모리를 절약합니다.
+
+<br>
+
+<br>
+
+> 기본적으로 require와 import는 모듈 키워드입니다. 외부 파일이나 라이브러리를 불러올 때 사용합니다.
+> `require`는 NodeJS에서 사용되고 있는 CommonJS 키워드이고, `import`는 ES6(ES2015)에서 새롭게 도입된 키워드입니다.
+> <br>
+>
+> ```javascript
+> const moment = require('moment');
+> ```
+>
+> CommonJS 방식을 따른 첫번째 코드는 Ruby처럼 require 키워드를 사용하여 여타 다른 변수를 할당하듯이 모듈을 불러오는 반면에,
+> <br>
+>
+> ```js
+> import moment from 'moment';
+> ```
+>
+> ES6 방식을 따른 두번째 코드는 Java나 Python처럼 import 키워드를 사용하여 좀 더 명시적으로 모듈을 불러오고 있습니다.
+> <br>
+> 최근 ES6(ES2015) 모듈 시스템인 `import` 가 많이 사용되고 있지만, 그러나 아직까지는 `import` 키워드가 100% 대체되어 사용될 수 없습니다.
+> <br>
+> Babel과 같은 ES6 코드를 변환(transpile)해주는 도구를 사용할 수 없는 경우에는 `require` 키워드를 사용해야 합니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: CommonJS
+
+CommonJS 란? 웹 브라우저 밖의 자바스크립트를 위한 모듈 생태계의 규칙을 설립하기 위한 프로젝트입니다.
+<br>
+개념은 간단합니다. `'.js'` 파일 간의 어떻게 의존성을 가지게 할지 정해주는 것입니다. commonJS라는 개념이 존재하는 이유는 자바스크립트를 범용적으로 모듈화를 높이기 위해서입니다.
+
+<br>
+
+# var, let, const의 차이점
+
+- `var`는 변수 재선언, 재할당 모두 가능합니다. <br>
+- `let`는 변수 재선언은 불가능, 재할당은 가능합니다. <br>
+- `const`는 변수 재선언, 재할당 모두 불가능합니다. <br>
+- `var`는 [`function-scoped`](#gear-function-scoped)이고, `let`, `const`는 [`block-scoped`](#gear-block-scoped)입니다.
+
+<br>
+
+### var의 재선언, 재할당이 가능하기 때문에 생긴 문제점
+```js
+// 이미 만들어진 변수이름으로 재선언했는데 아무런 문제가 발생하지 않습니다.
+var a = 'test'
+var a = 'test2'
+
+// hoisting으로 인해 ReferenceError에러가 나지 않습니다.
+c = 'test'
+var c
+```
+
+### es2015에 추가된 let, const는?
+```js
+// let
+let a = 'test'
+let a = 'test2' // Uncaught SyntaxError: Identifier 'a' has already been declared
+a = 'test3'     // 가능
+
+// const
+const b = 'test'
+const b = 'test2' // Uncaught SyntaxError: Identifier 'a' has already been declared
+b = 'test3'    // Uncaught TypeError:Assignment to constant variable.
+```
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: function-scoped
+- `var`는 `function-scoped`이기 때문에 for문이 끝난다음에 i를 호출하면 값이 출력이 잘 됩니다.
+- 그 이유는 `var`가 [`hoisting`](https://github.com/Esoolgnah/Frontend-Interview-Questions/blob/main/Notes/important-5/hoisting.md)이 되었기 때문입니다.
+
+```js
+for(var j = 0; j < 10; j++) {
+  console.log('j', j)
+}
+console.log('after loop j is ', j) // after loop j is 10
+
+
+// 아래의 경우에는 에러가 발생합니다.
+function counter () {
+  for(var i = 0; i < 10; i++) {
+    console.log('i', i)
+  }
+}
+counter()
+console.log('after loop i is', i) // ReferenceError: i is not defined
+```
+
+- `function scope`는 함수 내부 스코프를 의미하며 함수 내부에서 선언된 변수는 함수 내부에서만 접근이 가능합니다.
+```js
+function sayHi () {
+  const hi = 'Hi there!'
+  console.log(hi)
+}
+
+sayHi() // 'Hi there!'
+console.log(hi) // Error, hi is not defined
+```
+- `function scope`에서 다른 함수를 호출할 수 있지만, 다른 함수 내부에서 선언된 내부 변수에는 접근이 불가합니다.
+```js
+function first () {
+  const firstFunctionVariable = `I'm part of first`
+}
+
+function second () {
+  first() // It works
+  console.log(firstFunctionVariable) // Error, firstFunctionVariable is not defined
+}
+```
+
+### :gear: block-scoped
+
+`var`가 `function-scoped`로 `hoisting`이 되었다면
+
+`let`, `const`는 `block-scoped`단위로 `hoisting`이 일어납니다.
+
+
+### Block Scope
+중괄호({}) 내부에서 let, const 변수를 선언하면 그 변수들은 중괄호 내부에서만 접근이 가능합니다. <br>
+함수도 중괄호로 선언되므로 block scope도 function scope의 부분집합이라고 할 수 있습니다.
+```js
+{
+  const hi = 'Hi there!'
+  console.log(hi) // 'Hi there!'
+}
+
+console.log(hi) // Error, hi is not defined
+```
+
+<br>
+
+<br>
+
+```js
+c = 'test' // ReferenceError: c is not defined
+let c
+```
+
+위의 코드에서 ReferenceError가 발생한 이유는 [tdz](#gear-tdz)(temporal dead zone)때문입니다. <br>
+
+`let`은 값을 할당하기전에 변수가 선언 되어있어야 하는데 그렇지 않기 때문에 에러가 납니다. <br>
+
+이건 `const`도 마찬가지인데 좀 더 엄격합니다.
+
+```js
+// let은 선언하고 나중에 값을 할당이 가능하지만
+let dd
+dd = 'test'
+
+// const 선언과 동시에 값을 할당 해야합니다.
+const aa // Missing initializer in const declaration
+```
+이렇게 javascript에 tdz가 필요한 이유는 동적언어이다보니 runtime type check 가 필요해서입니다.
+
+<br>
+
+### :gear: tdz
+- TDZ(Temporal Dead Zone) 란, 한글로 직역하자면 일시적인 사각지대란 뜻입니다. <br> 이 일시적인 사각지대는 스코프의 시작 지점부터 초기화 시작 지점까지의 구간을 TDZ(Temporal Dead Zone) 라고합니다.
+
+<br>
+
+ # sass(scss)의 장점(특징)
+
+## 1. 변수 사용가능
+
+선언방법
+변수 타입 : `숫자, 문자열, 색상, boolean, null, lists, maps`
+
+```scss
+$변수명: 속성값;
+```
+
+## 2. 수학 연산자 사용가능
+
+사용가능 연산자 : `+, -, /, *, %, ==, !=`
+
+> ### 주의
+>
+> `+, -` 연산시에는 단위 통일 <br> `나눔기호` 사용시에는 괄호로 묶어서 사용
+
+## 3. Nesting 기능
+
+중첩해서 선언하기 가능
+
+```css
+/* CSS */
+.container {
+  width: 100%;
+}
+
+.container h1 {
+  color: red;
+}
+```
+
+```scss
+/* Sass */
+.container {
+  width: 100%;
+  h1 {
+    color: red;
+  }
+}
+```
+
+상위요소 참조시에는 & 문자 사용
+
+```css
+a {
+  color: black;
+}
+a:hover {
+  text-decoration: underline;
+  color: gray;
+}
+a:visited {
+  color: purple;
+}
+
+.widget {
+  font-weight: 400;
+}
+.widget-area {
+  font-weight: 600;
+}
+.widget-top_posts {
+  font-weight: 1000;
+}
+```
+
+```scss
+/* Sass */
+
+a {
+  color: black;
+  &:hover {
+    text-decoration: underline;
+    color: gray;
+  }
+  &:visited {
+    color: purple;
+  }
+}
+
+.widget {
+  font-weight: 400;
+  &-area {
+    font-weight: 600;
+  }
+  &-top_posts {
+    font-weight: 1000;
+  }
+}
+```
+
+## 4. `import`와 `extend`
+
+`@import` 지시어를 사용해서 다른 scss 파일을 import할 수 있다
+
+`@extend` 지시어를 사용하여 특정 선택자의 속성을 상속받을 수 있다
+
+```css
+.box,
+.success-box {
+  border: 1px solid gray;
+  padding: 10px;
+  display: inline-block;
+}
+
+.success-box {
+  border: 1px solid green;
+}
+```
+
+```scss
+/* Sass */
+.box {
+  border: 1px solid gray;
+  padding: 10px;
+  display: inline-block;
+}
+
+.success-box {
+  @extend .box;
+  border: 1px solid green;
+}
+```
+
+`Placeholder` 선택자 %를 사용하면 상속은 하면서 해당 선택자는 컴파일 X
+
+```scss
+/* SASS */
+%box {
+  padding: 0.5em;
+}
+
+.success-box {
+  @extend %box;
+  color: green;
+}
+
+.error-box {
+  @extend %box;
+  color: red;
+}
+```
+
+```css
+/* CSS */
+.success-box,
+.error-box {
+  padding: 0.5em;
+}
+
+.success-box {
+  color: green;
+}
+
+.error-box {
+  color: red;
+}
+```
+
+## 6. 믹스인(Mixin)
+
+공통적으로 쓰이는 css 속성들을 묶어서 재사용이 가능하게 하는 기능
+
+`parameter`를 받을 수 있다
+
+선언 `@mixin`
+
+사용 `@include`
+
+```scss
+/* SASS */
+@mixin headline($color, $size) {
+  color: $color;
+  font-size: $size;
+}
+
+h1 {
+  @include headline(green, 12px);
+}
+
+// 인자에 default값 적용
+@mixin headline($color: #eee, $size: 10px) {
+  width: 50px;
+}
+```
+
+```css
+/* CSS */
+h1 {
+  color: green;
+  font-size: 12px;
+}
+```
+
+```scss
+/* SASS */
+
+@mixin media($queryString) {
+  @media #{$queryString} {
+    @content;
+  }
+}
+
+.container {
+  width: 900px;
+  @include media('(max-width: 767px)') {
+    width: 100%;
+  }
+}
+```
+
+```css
+/* CSS */
+.container {
+  width: 900px;
+}
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+  }
+}
+```
+
+## 7. 커스텀 함수 사용
+
+함수 정의는 `@function` ,리턴값은 `@return`
+
+```scss
+$grid-width: 40px;
+$gutter-width: 10px;
+@function grid-width($n) {
+   @return $n * $grid-width + ($n -1 ) * $gutter-width;
+}
+#sidebar { width: grid-width(5); } // 믹스인과 달리 @include를 쓰지 않는다.
+내장함수도 사용 가능
+```
+
+## 8. 흐름제어
+
+분기문 : `@if`절 사용
+
+`@if` 표현식 { ... } `@else`
+
+`if` 표현식 { ... } `@else` { ... }
+
+```scss
+@mixin hcolor($n) {
+  @if $n % 2 == 0 { color: white; }
+  @else { color: blue; }
+}
+.row-3 { @include hcolor(3); }
+
+@function text-color($brightness) {
+  @if $brightness < 128 { @return #333; }
+  @return #ccc;
+}
+code { color: text-color(200);
+```
+
+반복문
+
+- `@for` : n~m 까지의 숫자 범위에 대해 각 정수값에 대해 순회
+- `@each` : 주어진 리스트나 맵의 각 원소에 대해 순회
+- `@while` : 주어진 조건을 만족하는 동안 반복
+
+```scss
+@for $i from 1 through 3 {
+  // 1, 2, 3,에 대해 반복
+  .time-#{$i} {
+    width: 2em * $i;
+  }
+}
+
+// 리스트 내 각 문자열 원소에 대해서...
+@each $animal in puma, sea-slug, egret, alamander {
+  .#{$animal}-icon {
+    background-image: url('/image/#{$animal}.png');
+  }
+}
+
+// 6, 4, 2번 아이템에 대해서
+$i: 6;
+@while $i > 0 {
+  .item-#{$i} {
+    width: 2em * $i;
+  }
+  $i: $i - 2;
+}
+```
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear:
+
+<br>
+
+# [CORS](#gear-cors)에 대처하는 방법과 우회하는 방법
+
+외부 서버로 ajax 요청이 안될 경우 아래와 같은 단계로 처리를 생각해 볼 수 있습니다.
+
+<br>
+
+1. 개발자가 테스트 혹은 개발단계에서 쉽게 요청하기: [웹 브라우저 실행 옵션](#gear-웹브라우저실행옵션)이나 [플러그인](#gear-플러그인)을 통한 [동일 출처 정책](#gear-동일출처정책) 회피
+
+2. CORS구현이 안되어 있는 서버로 ajax요청을 해야하지만 서버 쪽 컨트롤이 불가능할 경우: [jsonp방식](#gear-jsonp방식)으로 요청
+
+3. Ajax요청을 해야 하는 다른 도메인의 서버를 클라이언트와 같이 개발하거나 서버 개발 쪽 수정 요청이 가능한 경우: [서버에서](#gear-서버에서) CORS 요청이 허용되도록 구현
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: CORS
+
+- CORS(Cross-Origin Resource Sharing)란? 웹 브라우저에서 외부 도메인 서버와 통신하기 위한 방식을 표준화한 스펙입니다. 서버와 클라이언트가 정해진 헤더를 통해 서로 요청이나 응답에 반응할지 결정하는 방식으로 교차 출처 자원 공유(cross-origin resource sharing)라는 이름으로 포준화 되었습니다.
+
+### :gear: 웹브라우저실행옵션
+
+- (용어설명이 아닙니다.) 웹브라우저 실행 시 외부 요청을 허용하는 옵션을 사용, same origin policy는 결국 클라이언트인 웹 브라우저가 요청을 해도 되는지 판단해서 결정하는 것으로 이 과정만 무시한다면 어디든 요청하지 못할 이유는 없습니다. 크롬같은 웹 브라우저들은 실행 시 커맨드 라인 옵션을 통해서 외부 도메인 요청가능 여부를 확인하는 동작을 무시하게 할 수 있습니다.
+
+<br>
+
+> ### 크롬의 경우 <br>
+>
+> `--disable-web-security` 옵션을 추가하여 크롬 실행
+
+<br>
+
+### :gear: 플러그인
+
+- (용어설명이 아닙니다.) 외부 요청을 가능하게 해주는 플러그인 설치, 서버에서 받은 요청의 응답에 특정 header(`Access-Control-Allow-Origin: *`)만 추가하면 웹 브라우저가 요청이 가능한 사이트로 인식하여 요청이 가능합니다. 크롬의 경우 웹스토어에 요청을 가로채서 응답에 위 header를 추가해주는 플러그인이 있습니다. 웹스토어에서 cors로 검색하면 확장 프로그램 검색 결과에서 찾을 수 있습니다.
+
+### :gear: 동일출처정책
+
+- 동일 출처 정책(Same-Origin Policy)란? 어떤 출처에서 불러온 문서나 스크립트가 다른 출처에서 가져온 리소스와 상호작용하는 것을 제한하는 중요한 보안 방식입니다. 동일 출처 정책은 잠재적으로 해로울 수 있는 문서를 분리함으로써 공격받을 수 있는 경로를 줄여줍니다.
+
+### :gear: jsonp방식
+
+- 웹 브라우저에서 css나 js 같은 리소스 파일들은 동일 출처 정책에 영향을 받지 않고 로딩이 가능합니다. 이런 점을 응용해서 외부 서버에서 읽어온 js 파일을 json으로 바꿔주는 일종의 편법적인 방법입니다. 단점은 리소스 파일을 GET 메서드로 읽어오기 때문에 GET 방식의 API만 요청이 가능합니다.
+
+### :gear: 서버에서
+
+- (용어설명이 아닙니다.) 서버에서 CORS 요청 핸들링하기, 서버로 날아온 preflight 요청을 처리하며 웹 브라우저에서 실제 요청을 날릴 수 있도록 해줍니다.
+
+### 모든 외부 도메인에서 모든 요청을 허용할 경우 처리
+
+가장 쉬운 방법으로 모든 요청을 허용하는 방식입니다.
+
+preflight 요청을 받기 위해 OPTIONS 메서드의 요청을 받아서 컨트롤해야 합니다. 모든 요청의 응답에 아래 header를 추가합니다.
+
+```
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+Access-Control-Max_Age: 3600
+Access-Control-Allow-Headers: Origin,Accept,X-requested-With,Content-Type,Access-Control-Request-Method,Access-
+Control-Request-Headers,Authorization
+```
+
+<br>
+
+`Access-Control-Allow-Origin`: 요청을 허용하는 출처, `'*'` 이면 모든 곳에 공개되어 있음을 의미합니다.
+<br>
+`Access-Control-Allow_Methods`: 요청을 허용하는 메서드, 기본값은 `GET`,`POST`라고 보면 됩니다. 이 헤더가 없으면 `GET`과 `POST`요청만 가능합니다. 만약 이 헤더가 지정되어 있으면, 클라이언트는 헤더값에 해당하는 메서드일 경우에만 실제 요청을 시도하게 됩니다.
+<br>
+`Access-Control-Max-Age`: 클라이언트에서 preflight의 요청 결과를 저장할 기간을 지정. 클라이언트에서 preflight 요청의 결과를 저장하고 있을 시간입니다. 해당 시간 동안은 preflight 요청을 다시 하지 않게 됩니다.
+<br>
+`Access-Control-Allow_Headers` : 요청을 허용하는 헤더
+
+<br>
+
+웹 브라우저의 스크립트 엔진에서 preflight 요청 응답으로 `Access-Control-Allow-Origin` header에 `"*"` 값이 있으면 모든 도메인에서의 요청을 허용하는 것으로 판단합니다. ajax 요청이 실패하면서 발생하는 메시지는 바로 preflight요청을 날린 응답 메시지에 `Access-Control-Allow-Origin` 헤더가 없어서 요청이 허용되지 않는다는 뜻입니다.
+
+<br>
+
+# React의 생명 주기(라이프 사이클)
+
+리액트는 컴포넌트 기반의 View를 중심으로 한 라이브러리입니다. 그러다보니 각각의 컴포넌트에는 라이프 사이클 즉, 컴포넌트의 생명 주기가 존재합니다. 컴포넌트의 생명은 보통 페이지에서 렌더링되기 전인 준비 과정에서 시작하여 페이지에서 사라질 때 끝이 납니다.
+
+<br>
+
+<img src="../../Images/important-3/react-lifecycle.png" width="800px">
+
+> 위의 이미지는 리액트의 생명 주기를 나타낸 화면입니다. <br>
+> 이미지에서 볼 수 있듯이 컴포넌트는 `생성 => 업데이트 => 제거`의 생명 주기를 갖고 있습니다. <br>
+> 그럼 이제 각각의 라이프 사이클이 무엇이고 어떻게 Class와 Hooks를 활용한 함수형 컴포넌트에서 사용하는지 알아보도록 하겠습니다. <br>
+> 아래 목록에서 자주 사용되는 메서드는 `코드블럭`으로 표시하겠습니다. 나머지는 상대적으로 덜 사용됩니다.
+
+<br>
+
+<br>
+
+## 마운트(생성)
+
+컴포넌트의 [인스턴스](gear-)가 생성되어, DOM에 삽입될 때 순서대로 호출됩니다.
+
+- `constructor()`
+- getDerivedStateFromProps()
+- `render()`
+- `componentDidMount()`
+
+<br>
+
+## 업데이트
+
+props나 state가 변경되면 렌더(갱신)가 진행되며 순서대로 호출됩니다.
+
+- getDerivedStateFromProps()
+- shouldComponentUpdate()
+- `render()`
+- getSnapshotBeforeUpdate()
+- `componentDidUpdate()`
+
+<br>
+
+## 마운트 해제(제거)
+
+아래 메서드는 컴포넌트가 DOM에서 제거될 때 호출됩니다.
+
+- `componentWillUnmount()`
+
+<br>
+
+<br>
+
+위에 명시된 자주 사용되는 생명 주기 메서드에 대해 간략한 소개를 하겠습니다.
+
+<br>
+
+<br>
+
+### `render()`
+
+클래스 컴포넌트에서 반드시 구현되어야 하는 유일한 메서드입니다.
+
+- 이 메서드가 호출되면 this.props와 this.state의 값을 활용하여 값을 반환합니다.
+- render() 함수는 컴포넌트의 state를 변경하지 않고, 호출될 때마다 동일한 결과를 반환하며 브라우저와 직접적인 상호작용을 하지 않습니다.
+
+<br>
+
+```js
+// Class
+class Example extends React.Component {
+  render() {
+    return <div>컴포넌트</div>;
+  }
+}
+
+// Hooks
+const example = () => {
+  return <div>컴포넌트</div>;
+};
+```
+
+> 함수형 컴포넌트에서는 render를 안쓰고 컴포넌트를 렌더링할 수 있습니다.
+
+<br>
+
+### `constructor(props)`
+
+메서드를 바인딩하거나 state를 초기화하는 작업이 없다면 constructor(생성자)가 없어도 됩니다.
+
+- react 컴포넌트의 생성자는 해당 컴포넌트가 마운트되기 전에 호출됩니다.
+- 생성자를 구현하면, this.props가 생성자 내에서 정의되도록 super(props)를 호출해야 합니다.
+- state의 값을 변경하고자 한다면 constructor() 외부에서 this.setState()를 통해 수정해야 합니다.
+
+<br>
+
+```js
+// Class
+class Example extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { count: 0 };
+}
+
+// Hooks
+const Example = () => {
+    const [count,setCount] = useState(0);
+}
+```
+
+> 클래스형에서는 초기 state를 정할 때 constructor를 사용해야 합니다. 하지만 훅에서는 useState hook을 사용하면 초기 상태를 쉽게 설정해줄 수 있습니다.
+
+<br>
+
+### `componentDidMount()`
+
+컴포넌트가 마운트된 직후에 호출됩니다.
+
+- DOM 노드가 있어야 하는 초기화 작업이 이루어지면 좋습니다.
+- 외부에서 데이터를 불러와야 한다면 네트워크 요청을 보내기 좋은 위치입니다.
+
+<br>
+
+```js
+// Class
+class Example extends React.Component {
+    componentDidMount() {
+        ...
+    }
+}
+
+// Hooks
+const Example = () => {
+    useEffect(() => {
+        ...
+    }, []);
+}
+```
+
+> 함수형 Hooks 에서는 useEffect의 [] 의존성 배열을 비워야지만 똑같은 메소드를 구현할 수 있습니다.
+
+<br>
+
+### `componentDidUpdate()`
+
+갱신(렌더)가 일어난 직후에 호출되며 최초 렌더링에서는 호출되지 않습니다.
+
+<br>
+
+```js
+// Class
+class Example extends React.Component {
+    componentDidUpdate(prevProps, prevState) {
+        ...
+    }
+}
+
+// Hooks
+const Example = () => {
+    useEffect(() => {
+        ...
+    });
+}
+```
+
+<br>
+
+### `componentWillUnmount()`
+
+컴포넌트가 마운트 해제되어 제거되기 직전에 호출됩니다.
+
+- 타이머 제거, 네트워크 요청 취소, componentDidMount()에서 생성된 작업 등을 정리할 때 사용됩니다.
+- 실행 직후 컴포넌트는 렌더링되지 않으므로 setState()를 호출하면 안됩니다.
+
+<br>
+
+```js
+// Class
+class Example extends React.Component {
+    coomponentWillUnmount() {
+        ...
+    }
+}
+
+// Hooks
+const Example = () => {
+    useEffect(() => {
+        return () => {
+            ...
+        }
+    }, []);
+}
+```
+
+> 함수형 컴포넌트에서는 useEffect CleanUp 함수를 통해 해당 메서드를 구현할 수 있습니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 인스턴스
+
+인스턴스(instance)란 객체 지향 프로그래밍(OOP)에서 클래스(class)에 소속된 개별적인 객체를 말합니다. 예를 들어, 사용자(user)라는 클래스를 정의하고 홍길동(hong)이라는 객체를 생성할 경우, hong이라는 객체는 user라는 클래스의 인스턴스가 됩니다. 하나의 클래스를 사용하여 유사한 성질을 가진 수많은 인스턴스를 생성할 수 있습니다. 이 때 추상적인 개념인 클래스에서 실제 객체를 생성하는 것을 인스턴스화(instantiation)한다고 말합니다.
+
+<br>
+
+# ES6에서 Arrow 함수를 언제, 왜 쓸까?
+
+<br>
+
+Arrow 함수(arrow function)를 언제, 왜 사용하는지 그 이유들을 알아봅시다.
+
+<br>
+
+## 1. 함수 본연의 기능을 아주 잘 표현하는 문법입니다.
+
+보통 프로그래밍할 때 function 문법은 아래와 같은 이유로 많이 사용합니다.
+
+- 여러가지 기능을 하는 코드를 한 단어로 묶고 싶을 때 (그리고 나중에 재사용할 때)
+- [입출력기능](#gear-입출력기능)을 만들 때
+
+<br>
+
+그리고 `arrow function`을 사용하면 함수 본연의 입출력기능을 아주 직관적으로 잘 표현해줍니다.
+
+<br>
+
+```js
+let 두배만들기 = (x) => {
+  return x * 2;
+};
+
+console.log(두배만들기(4));
+console.log(두배만들기(8));
+```
+
+<br>
+
+`arrow function`을 쓰면 입출력기능이 쉽고 예쁘게 표현되는 것이 `arrow function`를 쓰는 이유 중 하나입니다.
+
+<br>
+
+<br>
+
+## 2. 소괄호 생략이 가능합니다.
+
+파라미터가 하나라면 소괄호를 생략 가능합니다.
+
+<br>
+
+```js
+let 두배만들기 = (x) => {
+  return x * 2;
+};
+
+console.log(두배만들기(4));
+console.log(두배만들기(8));
+```
+
+<br>
+
+이렇게도 가능합니다.
+
+<br>
+
+<br>
+
+## 3. 중괄호 생략이 가능합니다.
+
+중괄호 안에 return 한줄 뿐이라면 중괄호와 return도 생략가능합니다.
+
+<br>
+
+```js
+let 두배만들기 = (x) => x * 2;
+
+console.log(두배만들기(4));
+console.log(두배만들기(8));
+```
+
+<br>
+
+생략하니 이제 x가 어떻게 변하는 함수인지 입출력기능이 바로 한눈에 들어오는 걸 볼 수 있습니다.
+
+<br>
+
+<br>
+
+## 4. `arrow function`을 쓰면 내부에서 `this`값을 쓸 때 밖에 있던 `this`값을 그대로 사용합니다.
+
+`arrow function`은 어디서 쓰던 내부의 `this` 값을 변화시키지 않습니다. <br>
+
+또한 바깥에 있던 `this`의 의미를 그대로 내부에서도 사용합니다. 이게 `arrow function`을 쓰는 핵심 이유입니다. <br>
+
+예시를 보겠습니다.
+
+<br>
+
+```js
+let 오브젝트1 = {
+  함수: function () {
+    console.log(this);
+  },
+};
+
+오브젝트1.함수();
+```
+
+<br>
+
+위의 코드는 실행하면 무슨 결과가 나올까요? <br>
+
+> 결과: 함수()를 가지고 있는 오브젝트인 오브젝트1이 콘솔창에 출력됩니다.
+
+<br>
+
+다른 예시를 봅시다.
+
+<br>
+
+```js
+let 오브젝트1 = {
+  함수: () => {
+    console.log(this);
+  },
+};
+
+오브젝트1.함수();
+```
+
+<br>
+
+위의 코드는 출력하면 어떤 결과가 나올까요? <br>
+
+> 결과: `window`라는게 출력됩니다. 여기선 `this`가 `window`입니다. <br>
+> 함수의 주인인 오브젝트1이 출력되지 않는 이유는 `this`값은 함수를 만나면 항상 변하는데, <br> > `arrow function` 안에서는 변하지 않고 밖에 있던 `this`를 그대로 씁니다. <br>
+> (오브젝트 밖에 있던 `this`는 `window`입니다.)
+
+<br>
+
+왜냐면 `arrow function`은 외부에 있던 `this`를 그대로 내부로 가져와서 사용하는 함수기 때문입니다. <br>
+
+내가 예측하던 `this`값과 달라질 수도 있으니 이는 장점이 아니라 단점이 될 수도 있습니다.
+
+`this`의 뜻이 달라지는 것 처럼 일반 `function`과 용도가 완전 같지 않기 때문에
+
+일반 `function`을 항상 대체할 수 있는 문법이 아닙니다. 그것만 주의합시다.
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 입출력기능
+
+<br>
+
+2를 집어넣으면 x + 2를 출력해주는 함수를 어떻게 만들어쓸까요?
+
+<br>
+
+```js
+function 더해주세요(x) {
+  return x + 2;
+}
+```
+
+<br>
+
+위와 같은 문법을 이용해서 만들어 사용합니다. 함수의 소괄호안에는 `input` 역할을 하는 `파라미터`가 있고 <br>
+
+함수내에 `return` 이라는 것은 `output` 역할을 하는 키워드입니다. 그럼 이제 더해주세요(2); 이렇게 사용하면? <br>
+
+4가 이 자리에 남게 됩니다. 소괄호에 뭔가 집어넣으면 return을 이용해 뭔가 뱉어내는 것. 이게 바로 함수의 입출력 기능입니다.
+
+<br>
+
