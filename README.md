@@ -350,5 +350,690 @@ position 속성은 문서 상에 요소를 배치하는 방법을 지정합니�
 
 <br>
 
+# this의 용법
 
+this는 호출 패턴에 따라 다른 객체를 참조합니다. 실행 컨텍스트([EC](#gear-ec))가 생성될 때마다 this의 [바인딩](#gear-바인딩)이 일어나며 우선순위 순으로 나열해보면 다음과 같습니다.
+
+<br>
+
+1. [`new`](#gear-new) 를 사용했을 때 해당 객체로 바인딩됩니다.
+
+```javascript
+var name = 'global';
+function Func() {
+  this.name = 'Func';
+  this.print = function f() {
+    console.log(this.name);
+  };
+}
+var a = new Func();
+a.print(); // Func
+```
+
+2. [`call`](#gear-call), [`apply`](#gear-apply), [`bind`](#gear-bind) 와 같은 명시적 바인딩을 사용했을 때 인자로 전달된 객체에 바인딩됩니다.
+
+```javascript
+function func() {
+  console.log(this.name);
+}
+var obj = { name: 'obj name' };
+func.call(obj); // obj name
+func.apply(obj); // obj name
+func.bind(obj)(); // obj name
+```
+
+3. 객체의 메소드로 호출할 경우 해당 객체에 바인딩됩니다.
+
+```javascript
+var obj = {
+  name: 'obj name',
+  print: function p() {
+    console.log(this.name);
+  },
+};
+obj.print(); // obj name
+```
+
+4. 그 외의 경우
+
+- strict mode(엄격 모드): `undefined` 로 초기화됩니다.
+- 일반: 브라우저라면 `window` 객체에 바인딩됩니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 바인딩
+
+- 바인딩(Binding) 이란 프로그램의 어떤 기본 단위가 가질 수 있는 구성요소의 구체적인 값, 성격을 확정하는 것을 말합니다.
+
+### :gear: EC
+
+- EC는 실행 컨텍스트(Execution Context)의 약자이며 scope, hoisting, this, function, closure 등의 동작원리를 담고 있는 자바스크립트의 핵심원리입니다.
+
+### :gear: new
+
+- new라는 기호는 자바스크립트의 고유의 예약어이며 고유의 연산자(operator) 입니다. 아래는 자바스크립트의 new라는 연산자(operator)에 대한 정의 입니다.
+
+> new 연산자는 사용자 정의 객체 타입 또는 내장 객체 타입의 인스턴스를 생성한다.
+
+### :gear: call
+
+- call을 사용하면 함수를 실행하고 함수의 첫 번째 인자로 전달하는 값에 this를 바인딩합니다.
+
+### :gear: apply
+
+- call과 마찬가지로 apply를 사용하면 함수를 실행하고 함수의 첫 번째 인자로 전달하는 값에 this를 바인딩합니다. call과의 차이점은 인자를 배열의 형태로 전달한다는 것입니다. 이 때, 인자로 배열 자체가 전달되는 것이 아니라, 배열의 요소들이 값으로 전달됩니다.
+
+### :gear: bind
+
+- bind는 함수의 첫 번째 인자에 this를 바인딩한다는 점은 같지만, 함수를 실행하지 않으며 새로운 함수를 반환합니다. 즉 반환된 새로운 함수를 실행해야 원본 함수가 실행됩니다.
+
+<br>
+
+# 브라우저 저장소의 차이점
+
+### LocatStorage
+
+- 로컬 스토리지는 저장한 데이터를 지우지 않는 이상 영구적으로 보관이 가능합니다.([도메인](#gear-도메인)마다 별도로 로컬 스토리지가 생성됩니다.)
+- 최대 크기: 5MB
+- 사용 예시: 자동 로그인
+
+### SessionStorage
+
+- 세션 종료 시 클라이언트에 대한 정보가 삭제됩니다.
+- 최대 크기: 5MB
+- 사용 예시: 입력 폼 정보, 비로그인 장바구니
+
+### [쿠키](#gear-쿠키)(Cookie)
+
+- 웹 사이트에서 쿠키를 설정하면, 모든 웹 요청에는 쿠키 정보가 포함됩니다. => 서버 부담 증가
+- 최대 크기: 4KB
+- 사용 예시: 팝업 창
+
+### 서버 인증과 브라우저 저장소
+
+- 주요 정보를 요청 헤더에 넣는 방법
+
+  > 보안에 매우 취약합니다.
+
+- Session, Cookie 방식
+
+  > 서버 부하가 증가하고, 세션 하이재킹 공격에 취약합니다.
+
+- [JWT](#gear-jwt) 방식
+  > 별도의 브라우저 저장소에 저장하지 않고 JWT를 발급하고 검증하면 되어 확장성이 뛰어납니다.<br>
+  > 그러나 Payload 정보가 제한적이고, JWT길이가 길다는 단점 존재합니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 도메인
+
+- ip는 사람이 이해하고 기억하기 어렵기 때문에 이를 위해서 각 ip에 이름을 부여할 수 있게 했는데, 이것을 도메인이라고 합니다.
+
+### :gear: 쿠키
+
+- 쿠키(Cookie)란 인터넷 사용자가 어떠한 웹 사이트를 방문할 경우 그 사이트가 사용하고 있는 서버를 통해 인터넷 사용자의 컴퓨터에 설치되는 작은 기록 정보 파일입니다.
+
+### :gear: JWT
+
+- JWT(Json Web Token)란 Json 포맷을 이용하여 사용자에 대한 속성을 저장하는 Claim 기반의 Web Token입니다. JWT는 토큰 자체를 정보로 사용하는 Self-Contained 방식으로 정보를 안전하게 전달합니다.
+
+<br>
+
+# Restful API
+
+[`REST API`](https://github.com/Esoolgnah/Frontend-Interview-Questions/blob/main/Notes/important-5/rest-api.md)를 제공하는 웹사이트를 RESTful 하다고 할 수 있습니다. RESTful API를 통해 이해하기 쉬운 API를 만드는 것이 목적입니다.
+
+> - `GET`: 요청받은 URI의 정보를 검색하여 응답합니다.
+> - `POST`: 요청된 자원을 생성합니다.
+> - `DELETE`: 요청된 자원을 삭제할 것을 요청합니다.
+> - `PUT`: 요청된 자원을 (전체를) 수정합니다.
+
+<br>
+
+> - `PATCH`: 요청된 자원 (일부를) 수정합니다.
+> - `HEAD`: GET 방식과 동일, 하지만 응답에 BODY가 존재하지 않으며, 응답코드와 HEAD 만 응답합니다.
+> - `CONNECT`: 동적으로 [터널모드](#gear-터널모드)를 교환, [프록시](#gear-프록시) 기능을 요청시 사용합니다.
+> - `TRACE`: 원격지 서버에 [루프백](#gear-루프백) 메세지를 호출하기 위해 테스트용으로 사용합니다.
+> - `OPTIONS`: 웹서버에서 지원되는 메서드의 종류를 확인할 경우 사용합니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 터널모드
+
+- IPSec에는 두 가지 모드가 있는데, IP의 내용(payload)만을 보호하느냐, 아니면 헤더까지 모두 보호하느냐에 따라서 전자는 `전송 모드(Transport Mode)`, 후자는 `터널 모드(Tunnel Mode)`라고 합니다.
+
+### :gear: 프록시
+
+- 프록시(Proxy) 는 ‘대리', '대신' 이라는 뜻을 가집니다. 주로 보안상의 문제를 방지하기 위해, 직접 통신하지 않고 중계자를 거친다는 개념입니다.
+
+### :gear: 루프백
+
+- 루프백(loopback) 이란 가상의 인터페이스를 만들어서 사용하는 것입니다. 인터페이스 예로는 LAN구간 , WAN구간 마다 다르겠지만 Serial와 Ethernet이 FastEthernet 등등 다양한 인터페이스가 존재합니다. 물리적인 인터페이스의 경우 Serial 일때 Clock rate , WAN 인캡슐레이션 등 부여를 해야하고 이는 즉 외부에 간섭을 받는다는 말이 됩니다. 하지만 loopback은 설정을 하지 않아도 되며, 라우터가 죽지 않는 이상 잘 돌아가게 됩니다. 다른 인터페이스는 죽으면 통신이 안되지만 loopback 은 그렇지 않기 때문에 비교적 안전한 인터페이스라고 말합니다.
+
+<br>
+
+# JavaScript는 어떤 언어일까?
+
+JavaScript는 `싱글 스레드`이면서 `논 블록킹` 언어입니다.
+
+> ### 싱글 스레드 논 블록킹
+>
+> - 자바스크립트는 비동기 처리를 통해 싱글 스레드이지만 블록킹 되지 않게 합니다.
+>   하나의 요청이 완료될 때까지 기다리지 않고 동시에 다른 작업을 수행함으로써 문제를 해결합니다.
+
+> ### 싱글 스레드
+>
+> - 스레드가 하나밖에 존재하지 않아 한번에 하나의 작업만 할 수 있습니다.
+
+> ### 스레드
+>
+> - 어떠한 프로그램 내에서, 특히 프로세스 내에서 실행되는 흐름의 단위를 말합니다.
+
+> ### 비동기 처리
+>
+> - 특정 로직의 실행이 끝날때까지 기다려주지 않고 나머지 코드를 먼저 실행하는 것입니다.
+>   멀티 스레드가 아닌 이유는 동시성 문제(동시에 공유된 자원에 접근하는 경우)를 해결하기 까다롭기 때문입니다.
+
+<br>
+
+---
+
+# 자바스크립트에서 비동기적으로 코딩하기
+
+> ### Promise
+>
+> - 비동기 작업이 맞이할 미래의 완료 또는 실패와 그 결과 값입니다.
+>   쉽게 말해 비동기 작업의 결과라고 생각하면 됩니다.
+
+### [콜백](#gear-콜백) 함수
+
+> 주의! 콜백 지옥에 빠지게 될 수도 있다는 단점이 존재합니다.
+
+### Promise
+
+- `.then`: `promise`가 처리될 때까지 대기합니다.
+
+### `async`/`await`
+
+- `async`: 해당 함수는 항상 `promise`를 반환합니다.
+- `await`: `promise`가 처리될 때까지 대기합니다.
+
+> 비동기 처리가 필요한 이유: https://velog.io/@dev-katrina/%EB%B9%84%EB%8F%99%EA%B8%B0
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 콜백
+
+- 함수가 끝나고 난 뒤에 실행되는 함수입니다. 자바스크립트에서 함수는 객체입니다. 따라서 함수는 함수를 인자로 받고 다른 함수를 통해 반환될 수 있습니다. 인자로 대입되는 함수를 콜백함수라고 부릅니다.
+
+<br>
+
+# 자바스크립트 동작 원리([이벤트 루프](#gear-이벤트루프)(Event Loop))
+
+<img src="../../Images/important-4/javascript-eventloop.gif" width="600px">
+
+- gif 출처: https://beomy.github.io/tech/javascript/javascript-runtime/
+
+> - 일반적인 작업은 [콜스택](#gear-콜스택)(Call Stack)에서 이루어집니다.
+> - 시간이 소요되는 작업들(setTimeout, 이벤트, HTTP 요청 메서드 등)은 [WebAPI](#gear-webapi)에서 대기하다가 [콜백큐](#gear-콜백큐)(Callback Queue)로 보내집니다.
+> - Call Stack이 비워져 있을때만 Callback Queue에 저장되어있던 작업들을 Call Stack으로 보냅니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 이벤트루프
+
+- 이벤트 루프(Event Loop)는 call stack이 다 비워지면 callback queue에 존재하는 함수를 하나씩 call stack으로 옮기는 역할을 합니다.
+
+### :gear: 콜스택
+
+- 콜스택(Call Stack)은 실행된 코드의 환경을 저장하는 자료구조로, 함수 호출 시 이곳에 저장됩니다. 어떤 함수를 저장하면 스택에 쌓고 또 다른 함수를 호출하면 그 다음 스택에 쌓이면서 가장 위에 쌓인 함수를 가장 먼저 처리합니다. LIFO(Last In First Out)
+
+### :gear: webAPI
+
+- Web API는 브라우저에서 제공하는 API로 DOM, Ajax, TimeOut 등이 있습니다. CallStack에서 실행된 비동기 함수는 Web API를 호출하고, Web API는 콜백 함수를 Task Queue에 넣습니다.
+
+### :gear: 콜백큐
+
+- 콜백큐(Callback Queue)는 함수를 저장하는 자료구조로, Call Stack과 다르게 가장 먼저 들어온 함수를 가장 먼저 처리합니다.
+
+<br>
+
+# 마이크로태스크 큐, 태스크 큐
+
+<br>
+
+2개의 큐 모두 [콜백함수](#gear-콜백함수)가 들어간다는 점에서 동일하지만 어떤 함수를 실행하느냐에 따라 어디로 들어가는지가 달라집니다. 또한 명칭은 큐 (Queue) 이지만 자료구조의 큐와는 다릅니다. 엄밀히 말하자면 [우선순위 큐](#gear-우선순위큐) (Priority Queue) 라고 할 수 있는데, 이벤트 루프가 2개의 큐에서 태스크를 꺼내는 조건이 “제일 오래된 태스크” 이기 때문입니다. ([`동작방식`](https://html.spec.whatwg.org/multipage/webappapis.html#task-queue))
+
+<br>
+
+- 콜백함수를 태스크 큐에 넣는 함수들
+
+  - setTimeout, setInterval, setImmediate, requestAnimationFrame, I/O, UI 렌더링
+
+- 콜백함수를 마이크로태스크 큐에 넣는 함수들
+
+  - process.nextTick, Promise, Object.observe, MutationObserver
+
+<br>
+
+익숙한 함수인 Web API의 `setTimeout()` 의 콜백함수가 태스크 큐에 들어가고 `Promise` 의 콜백함수가 마이크로태스크 큐에 들어간다는 것을 알 수 있습니다. [이벤트 루프](https://github.com/Esoolgnah/Frontend-Interview-Questions/blob/main/Notes/important-4/event-loop.md)는 각 콜백함수를 태스크/마이크로태스크 큐에서 꺼내쓰는 것인데, 그렇다면 어떤게 먼저일까요?
+
+<br>
+
+결론부터 말씀드리자면, `마이크로태스크 큐가 먼저입니다.`
+
+<br>
+
+[이벤트 루프](https://github.com/Esoolgnah/Frontend-Interview-Questions/blob/main/Notes/important-4/event-loop.md)는 마이크로태스크 큐의 모든 태스크들을 처리한 다음, 태스크 큐의 태스크들을 처리합니다. 따라서 `Promise`의 콜백함수가 `setTimeout()`의 콜백함수보다 먼저 처리됩니다.
+
+<br>
+
+### 예시
+
+```js
+console.log('콜 스택!');
+setTimeout(() => console.log('태스크 큐!'), 0);
+Promise.resolve().then(() => console.log('마이크로태스크 큐!'));
+```
+
+<br>
+
+### 결과
+
+```
+콜 스택!
+마이크로태스크 큐!
+태스크 큐!
+```
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 콜백함수
+
+- 함수가 끝나고 난 뒤에 실행되는 함수입니다. 자바스크립트에서 함수는 객체입니다. 따라서 함수는 함수를 인자로 받고 다른 함수를 통해 반환될 수 있습니다. 인자로 대입되는 함수를 콜백함수라고 부릅니다.
+
+### :gear: 우선순위큐
+
+- 우선순위 큐(Priority Queue)는 먼저 들어오는 데이터가 아니라, 우선순위가 높은 데이터가 먼저 나가는 형태의 자료구조입니다. 일반적으로 힙(Heap)을 이용하여 구현합니다.
+
+<br>
+
+# 이벤트 전파
+
+생성된 이벤트 객체는 이벤트를 발생시킨 DOM 요소인 이벤트 타깃을 중심으로 DOM트리를 통해 전파됩니다.
+
+<br>
+
+> ### [이벤트 버블링](#gear-이벤트버블링)
+>
+> 이벤트가 하위 요소에서 상위 요소 방향으로 전파
+
+<br>
+
+> ### [이벤트 캡처링](#gear-이벤트캡처링)
+>
+> 이벤트가 상위 요소에서 하위 요소 방향으로 전파
+
+<br>
+
++) 이벤트 버블링과 캡처링를 막기 위해서 [e.stopPropagation()](#gear-stoppropagation)을 사용합니다.
+해당 웹 API를 통해 이벤트가 전파되는 것을 막을 수 있습니다.
+
+<br>
+
+> ### 타깃 단계
+>
+> 이벤트가 이벤트 타깃에 도달
+
+<br>
+
+### [이벤트 위임](#gear-이벤트위임): 이벤트 버블링 활용하기
+
+이벤트 위임을 사용하지 않고, 동일한 이벤트를 일일히 수동으로 달아주기에는 코드 낭비가 너무 심합니다.
+
+따라서 부모 요소에 이벤트를 부여해 버블링을 통해 하위 요소를 동작시킬때도 해당 이벤트가 발생하도록 만드는 것이 바람직합니다.
+
+<br>
+
+아래와 같은 상황에서
+
+```html
+<div class="itemList">
+  <li>
+    <input type="checkbox" id="item1" />
+    <label for="item1">1</label>
+  </li>
+  <li>
+    <input type="checkbox" id="item2" />
+    <label for="item2">2</label>
+  </li>
+</div>
+```
+
+- case1: 각각 이벤트들을 부여해주기
+  inputs의 내부 input에 각각 이벤트를 달아주었습니다.
+
+```js
+let inputs = document.querySelectorAll('input');
+inputs.forEach((input) => {
+  input.addEventListener('click', () => {
+    alert('clicked');
+  });
+});
+```
+
+- case2: 부모 요소에 이벤트 부여하기
+  부모 요소인 itemList를 클릭했을 때, 이벤트 버블링을 통해 checkbox type을 클릭했을 경우, 이벤트가 똑같이 동작하도록 만들었습니다.
+
+```js
+let itemList = document.querySelector('.itemList');
+itemList.addEventListener('click', (e) => {
+  console.log(e);
+  if (e.target.type === 'checkbox') {
+    alert('click');
+  }
+});
+```
+
+이처럼 이벤트 버블링을 통한 이벤트 위임은 하위 요소에 각각의 이벤트를 붙이지 않고도 상위 요소에서 하위 요소의 이벤트들을 제어할 수 있습니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 이벤트버블링
+
+- 이벤트 버블링(Event Bubbling)은 특정 화면 요소에서 이벤트가 발생했을 때 해당 이벤트가 더 상위의 화면 요소들로 전달되어 가는 특성을 의미합니다. 아래와 같은 그림처럼요.
+
+<img src="../../Images/important-4/event-bubbling.png" width="600px">
+
+> 하위의 클릭 이벤트가 상위로 전달되어 가는 그림
+
+### :gear: 이벤트캡처링
+
+- 이벤트 캡처링(Event Capturing)은 이벤트 버블링과 반대 방향으로 진행되는 이벤트 전파 방식입니다.
+
+<img src="../../Images/important-4/event-capturing.png" width="600px">
+
+> 클릭 이벤트가 발생한 지점을 찾아내려 가는 그림
+
+<br>
+
+```html
+<div class="outside">
+  녹색 영역
+  <div class="middle">
+    하늘색 영역
+    <div class="inner">
+      핑크색 영역
+      <div class="float">회색</div>
+    </div>
+  </div>
+</div>
+```
+
+<br>
+
+```js
+const outside = document.querySelector('.outside');
+const middle = document.querySelector('.middle');
+const inner = document.querySelector('.inner');
+const float = document.querySelector('.float');
+
+function callback() {
+  alert(this.className + ' is Capturing!');
+}
+
+outside.addEventListener('click', callback, true);
+middle.addEventListener('click', callback, true);
+inner.addEventListener('click', callback, true);
+float.addEventListener('click', callback, true);
+```
+
+<br>
+
+위 코드는 이벤트 캡처링의 예시입니다. `float`을 클릭하면 `가장 상위 부모요소`인 `outside`의 이벤트부터 발생합니다. 이때 `addEventListener`함수의 `두번째 인자`로 전달된 `true`는 `이벤트를 캡처링해야하는지 여부`를 지정합니다.
+
+<br>
+
+```js
+target.addEventListener(type, listener[, useCapture]);
+```
+
+<br>
+
+- `type` : 이벤트의 이름을 지정하는 문자열. 대소문자 구별. (click, keypress 등..)
+- `listener` : 이벤트가 발생할때 호출할 이벤트 리스너 함수.
+- `useCapture` : 캠쳐링을 사용할지 여부를 지정하는 Boolean. default는 false 입니다. (선택사항)
+
+### :gear: 이벤트위임
+
+- 캡처링과 버블링을 활용하면 강력한 이벤트 핸들링 패턴인 이벤트 위임(event delegation) 을 구현할 수 있습니다.
+  이벤트 위임은 비슷한 방식으로 여러 요소를 다뤄야 할 때 사용됩니다. 이벤트 위임을 사용하면 요소마다 핸들러를 할당하지 않고, 요소의 공통 조상에 이벤트 핸들러를 단 하나만 할당해도 여러 요소를 한꺼번에 다룰 수 있습니다.
+  공통 조상에 할당한 핸들러에서 `event.target`을 이용하면 실제 어디서 이벤트가 발생했는지 알 수 있습니다. 이를 이용해 이벤트를 핸들링합니다.
+
+### :gear: stopPropagation
+
+- “난 이렇게 복잡한 이벤트 전달 방식 알고 싶지 않고, 그냥 원하는 화면 요소의 이벤트만 신경 쓰고 싶어요.”라고 생각하시는 분들이 충분히 있을 수 있습니다. 실제로 마감 기한에 쫓기는 상황에서 이런 동작 방식을 정확히 이해하는 시간보다는 구현에 더 많은 시간을 쏟아야 하기 때문입니다. 그럴 때는 아래처럼 stopPropagation() 웹 API를 사용합니다.
+
+```js
+function logEvent(event) {
+  event.stopPropagation();
+}
+```
+
+위 API는 해당 이벤트가 전파되는 것을 막습니다. 따라서, 이벤트 버블링의 경우에는 클릭한 요소의 이벤트만 발생시키고 상위 요소로 이벤트를 전달하는 것을 방해합니다. 그리고 이벤트 캡쳐의 경우에는 클릭한 요소의 최상위 요소의 이벤트만 동작시키고 하위 요소들로 이벤트를 전달하지 않습니다.
+
+<br>
+
+# 타입스크립트란?
+
+타입을 명시하지 않는 자바스크립트와 달리, 타입스크립트를 통해 [정적 타입](#gear-정적타입)을 명시하여 사용할 수 있습니다.
+
+<br>
+
+### 타입스크립트의 장점
+
+타입스크립트는 코드에 목적을 명시하고, 목적에 맞지 않는 타입의 변수나 함수들에서 에러를 발생시켜 버그를 사전에 제거할 수 있습니다.
+
+프로젝트가 크고, 복잡할수록 타입스크립트가 가진 강점이 점점 더 강해집니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 정적타입
+
+- TypeScript의 가장 독특한 특징은 정적 타이핑을 지원한다는 것입니다. 정적 타입 언어는 타입을 명시적으로 선언하며, 타입이 결정된 후에는 타입을 변경할 수 없습니다. 잘못된 타입의 값이 할당 또는 반환되면 컴파일러는 이를 감지해 에러를 발생시킵니다.
+
+- 자바스크립트는 동적 타입(dynamic typed) 언어 혹은 느슨한 타입(loosely typed) 언어입니다. 이것은 변수의 타입 선언 없이 값이 할당되는 과정에서 동적으로 타입을 추론(Type Inference)한다는 의미입니다. 동적 타입 언어는 타입 추론에 의해 변수의 타입이 결정된 후에도 같은 변수에 여러 타입의 값을 교차하여 할당할 수 있습니다. 이를 동적 타이핑(Dynamic Typing)이라 합니다. 동적 타이핑은 사용하기 간편하지만 코드를 예측하기 힘들어 예상치 못한 오류를 만들 가능성이 높습니다. 또한 IDE와 같은 도구가 변수나 매개 변수, 함수의 반환값의 타입을 알 수 없어 코드 어시스트 등의 기능을 지원할 수 없게 합니다.
+
+<br>
+
+# 실행 문맥(실행 컨텍스트)
+
+```js
+var x = 10;
+const y = 20;
+
+function edit(a) {
+  var x = 1;
+  const y = 2;
+
+  return x + y + a;
+}
+edit(12);
+```
+
+<br>
+
+<img src="../../Images/important-4/execution-context.png" width="600px">
+
+<br>
+
+위와 같은 코드에서의 [실행 컨텍스트](#gear-실행컨텍스트)를 확인하면 다음과 같습니다.
+
+> 1. 전역 실행 컨텍스트 생성/소스코드 실행
+>
+> - var로 선언한 전역 변수는 객체 환경 레코드에 저장됨.
+> - const, let으로 선언한 전역 변수는 선언적 환경 레코드에 저장됨.
+> - edit 함수 실행 컨텍스트 생성/소스코드 실행
+>
+> 2. 전역 환경 레코드와 달리 함수 환경 레코드는 분리되지 않고, 한 장소에서 var,const,let 모두를 처리한다.
+>
+> - 추가로 알아야 하는 것들:
+
+실행 컨텍스트들은 실행 컨텍스트 스택에 하나씩 쌓이고 사라진다.
+소스코드 평가 과정에서는 선언문이 실행되고, 스코프에 등록된다.
+소스코드 실행 과정에서는 변수에 값이 할당되고 함수가 호출된다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 실행컨텍스트
+
+- 실행 컨텍스트는 실행할 코드에 제공할 환경 정보들을 모아놓은 객체입니다. 실행 컨텍스트는 동일한 환경에 있는 코드들을 실행할 때 필요한 환경 정보들을 모아 객체를 구성하고, 이를 콜 스택에 쌓아올렸다가, 가장 위에 쌓여있는 컨텍스트와 관련 있는 코드들을 실행하는 식으로 전체 코드의 환경과 순서를 보장합니다. 어떤 실행 컨텍스트가 활성화되는 시점에 선언된 변수를 위로 끌어올리고 외부 환경 정보를 구성하고, this 값을 설정하는 등의 동작을 수행합니다. 실행 컨텍스트는 자바스크립트의 동적 언어로서의 성격을 가장 잘 파악할 수 있는 개념입니다. 만약 실행 컨텍스트를 구성하고 싶다면, 함수를 실행해보면 됩니다.
+
+출처: https://overcome-the-limits.tistory.com/321 [Plus Ultra]
+
+<br>
+
+# SPA, CSR, SSR의 차이
+
+## SPA
+
+### [싱글 페이지 렌더링]
+
+- SPA는 최초 한번 페이지 전체를 로딩한 후부터 데이터만 변경해서 사용할 수 있는 웹 애플리케이션입니다.
+  => 하나의 페이지에서 실행됩니다.
+
+## CSR
+
+### [클라이언트 사이드 렌더링]
+
+- 최초 로드시 필요한 파일들을 전부 받고, 사용자의 [인터렉션](#gear-인터렉션)에 따라서 클라이언트단에서 받아와 랜더링을 해주는 방식입니다.
+  => 기본 틀만 받고, 브라우저에서 동작으로 DOM을 그립니다.
+
+> 단점: 초반에 뼈대만 다운받기 때문에, [SEO](#gear-seo)에 취약, 초기 화면의 렌더링 속도가 느립니다.
+> 장점: 렌더링 속도가 빠릅니다.
+
+## SSR
+
+### [서버 사이드 렌더링]
+
+- 요청시마다 새로고침이 일어나며 서버에 새로운 페이지에 대한 요청을 하는 방식
+  => 이미 다 만들어진 DOM을 받습니다.
+  > 단점: 매 랜더링마다 서버를 거침으로 속도가 느립니다.
+  > 장점: 초기 화면의 렌더링 속도가 빠르며, [SEO](#gear-seo)에 최적화되어 있습니다.
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 인터렉션
+
+- 인터렉션은 사용자가 목적을 달성하기 위해서 제품의 UI를 사용하여 상호작용하는 과정을 의미합니다. 핸드폰으로 예를 들면, 전화를 걸기 위해 사용자가 통화 버튼을 누르면 최근 통화 목록이 표시되고, 연락처를 보고 싶으면 연락처 리스트를 클릭하면 저장되어 있는 연락처가 리스트로 쭉 뜹니다. 이때 통화 목록을 상하로 스크롤하고, 통화를 원하는 사람 혹은 항목의 전화하기 버튼을 터치하면 통화가 되고 통화 종료 버튼을 누르면 통화가 종료됩니다. 그러면 해당 항목은 최근 통화목록 맨 위에 새롭게 항목이 추가 됩니다. 이렇게 사용자와 핸드폰이 주고 받는 과정이 모두 다 인터렉션입니다.
+
+### :gear: SEO
+
+- SEO(Search Engine Optimization)는 검색 엔진 최적화 라는 말로, 특정 웹 페이지가 검색 결과 상위에 노출 될 수 있도록 하는 작업입니다. 검색 엔진이 이해하기 쉽도록, 기본적으로 특정 검색어를 웹 페이지에 적절히 배치하고 다른 웹 페이지에서 링크가 많이 걸릴 수 있는 등 검색 결과 상위에 노출될 수 있도록 하는 작업을 말합니다.
+
+<br>
+
+# null, undefined, undeclared, NaN
+
+## null
+
+- 빈 값
+- null이라는 빈 값을 할당했을 때, 생기는 타입입니다.
+
+## undefined
+
+- 정의되지 않음
+- `var` 선언문의 경우, 호이스팅 되었을 때, 변수 선언과 초기화가 동시에 일어나기 때문에, 변수가 `undefined` 됩니다.(타입 결정 안됨)
+
+```js
+console.log(data); // undefined
+const data = 'data';
+```
+
+## undeclared
+
+- 선언되지 않음
+- `let`, `const` 선언문의 경우, [호이스팅](#gear-호이스팅) 되었을 때, 변수 선언과 초기화가 따로 이루어지기에, 변수가 `undeclared`되어 에러가 생깁니다.
+
+```js
+console.log(data); // error
+let data = 'data';
+```
+
+## NaN
+
+- 표현 불가능한 수치형 결과입니다.
+
+```js
+typeof 1 / 0; // NaN
+```
+
+<br>
+
+---
+
+<br>
+
+## :hammer_and_wrench: 용어 공부
+
+### :gear: 호이스팅
+
+- 호이스팅이란 "끌어올린다" 라는 뜻으로 **변수 및 함수 선언문이 스코프 내의 최상단으로 끌어올려지는 현상** 을 말합니다. 여기서 주의할 점은 **"선언문"** 이라는 것이며 "대입문"은 끌어올려지지 않습니다. ([호이스팅이란? 글 보러가기](https://github.com/Esoolgnah/Frontend-Interview-Questions/blob/main/Notes/important-5/hoisting.md))
+  <br>
 
