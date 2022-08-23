@@ -1,4 +1,4 @@
-# 페이지 구성 방식
+# 📖페이지 구성 방식
 
 ## **SPA(Single Page Application)**
 
