@@ -28,3 +28,5 @@
 프록시 서버를 인터넷 리소스 또는 인트라넷 리소스 앞에 위치시키는 방식, 즉 사용자가 naver.com 웹 서비스에 데이터를 요청하면, Reverse 프록시가 이 요청을 받아 내부 서버에서 데이터를 받은 후에 이 데이터를 사용자에게 전달하는 방식이다.
 
 <img src="images/reverse_Proxy.jpeg" width="300px" />
+
+참고 : https://velog.io/@jangwonyoon/Proxy-Server%ED%94%84%EB%A1%9D%EC%8B%9C-%EC%84%9C%EB%B2%84%EB%9E%80
