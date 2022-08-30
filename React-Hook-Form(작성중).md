@@ -94,6 +94,13 @@ errors객체에서 오류 메시지를 반환하도록 문자열을 할당할 �
 
 
     ```
+validate에 콜백함수로 리턴값을 문자열로 해주면 해당 문자열이 에러메시지로 나타난다.
+```html
+<input {...register("lastName",{
+       required : "write here",
+       validate : () => "all error" <!-- 문자열로 에러 값 항상 나타나게 해준다. -->
+       )} />
+```
 <hr />
 
 ## 📌 watch
