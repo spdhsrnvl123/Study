@@ -7,6 +7,8 @@
 
 해결방법 : 
 
+https://velog.io/@roong-ra/Git-에러-Fatal-정방향이-불가능하므로-중지합니다
+
 #### git rebase란?
 https://seosh817.tistory.com/240
 
