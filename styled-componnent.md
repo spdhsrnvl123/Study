@@ -66,7 +66,7 @@ function App(){
     // Box에 있는 컴포넌트 속성을 가져오고 Circle 컴포넌트에 border-radius : 50px;속성을 추가한다.
     return(
         <Father>
-            <Box bgColor="yellow">
+            <Box bgColor="yellow" />
             <Circle bgColor="tomato" />
         </Father>
     )
