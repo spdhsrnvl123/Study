@@ -102,7 +102,7 @@ function App(){
     `;
 
     return(
-        <Father as="header>
+        <Father as="header">
             <Input />
             <Input />
             <Input />
