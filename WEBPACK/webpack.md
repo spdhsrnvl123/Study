@@ -4,7 +4,7 @@
 command -> node_modules/.bin/webpack --help
 
 ## webpack을 설정하기 위해서 필수 3가지 옵션
---mode ,--entry ,--output
+--mode, --entry, --output
 
 ## 보통 웹팩을 번들링이라고도 함
 
