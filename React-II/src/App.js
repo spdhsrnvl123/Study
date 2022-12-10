@@ -12,6 +12,7 @@ function App() {
   let [따봉, 따봉변경] = useState([0,0,0]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0)
+  let [입력값,입력값변경] = useState('');
   
   const addUpdate = (e)=>{
     e.preventDefault()
@@ -49,7 +50,11 @@ function App() {
                 따봉변경(copy)
                 }}> 👍 </span>{따봉[i]}
               <p>2월 17일 발행</p>
-              <button onClick={()=>deleteUpdate(i)}>삭제</button>
+              <button onClick={()=>{
+                let copy = [...글제목];
+                copy.splice(i,1);
+                글제목변경(copy);
+              }}>삭제</button>
             </div>
           )
         })
@@ -57,10 +62,14 @@ function App() {
       {
         modal === true ? <Modal 글제목={글제목[title]} /> : null
       }
-      <form onSubmit={addUpdate}>
-        <input type="text"></input>
-        <button>글발행</button>
-      </form>
+        <input onChange={(e)=>{
+          입력값변경(e.target.value)
+        }} />
+        <button onClick={()=>{
+          let copy = [...글제목];
+          copy.unshift(입력값);
+          글제목변경(copy)
+        }}>글발행</button>
     </div>
   );
 }
