@@ -30,11 +30,6 @@
 ### 스위칭(교환)
 ### 라우팅(경로설정)
 
-## 접속 네트워크
-### 가정 접속
-### 기관 접속
-### 무선 접속
-![image](https://github.com/spdhsrnvl123/Study/assets/83896466/c5004720-6cea-4bdf-9ce1-deb83fe761b7)
 
 ## DSL
 ## HFC
@@ -46,17 +41,10 @@
 ## WAN
 <img width="600" alt="스크린샷 2024-03-10 오후 4 16 18" src="https://github.com/spdhsrnvl123/Study/assets/83896466/7d084a80-7ebb-4d69-98ff-ad3b886da735">
 
-## 꼬임쌍 동선
-### UTP
-![image](https://github.com/spdhsrnvl123/Study/assets/83896466/cc59f0ea-8153-4bfd-8f9d-87791f9f075a)
-![image](https://github.com/spdhsrnvl123/Study/assets/83896466/adfbf1f8-2bbc-4bdb-aad3-b8ff771c39e4)
 
-### 동축케이블
-### 광섬유
-![image](https://github.com/spdhsrnvl123/Study/assets/83896466/66a86c0f-ab55-4042-9d0f-85d6966e4121)
 ### 회선교환
 ### 패킷교환
-### 대역폭
+
 ### FDM
 ### TDM
 ### 처리 지연
@@ -77,7 +65,6 @@
 <img width="600" alt=" " src="https://github.com/spdhsrnvl123/Study/assets/83896466/82b6955b-04a7-42fa-878c-e3614139c4c4">
 <img width="600" alt="스크린샷 2024-03-10 오후 5 11 54" src="https://github.com/spdhsrnvl123/Study/assets/83896466/fcda2b2a-6903-45a6-a897-a71e29f8e967">
 
-
 ### 응용 계층
 여러가지 서비스를 제공하는 실질적인 프로그램, 사용자 인터페이스
 ### 표현 계층
@@ -86,9 +73,18 @@
 논리적인 연결을 정의하는 계층, 네트워크 장치들간의 연결 설정의 유지 동화 등을 어떻게 수행할지를 정의
 <img width="600" alt="스크린샷 2024-03-10 오후 5 09 20" src="https://github.com/spdhsrnvl123/Study/assets/83896466/ca555ea5-7fe4-42f1-b19d-43ab115687ca">
 
+> 세션계층부터 표현, 응용 계층은 사용자를 위한 계층으로 어플리케이션 관련 기능을 당담하고 생각하면 된다.
+<br />
+> 실질적으로 IT인프라를 당담하는 계층은 1~4계층까지라고 보면 된다.
+
 ### 전송 계층 - 4계층
 포트주소를 이용해서 통신, 오류 제어(신뢰성 유무), 특정 프로그램 간의 통신(웹 브라우저 and 웹 서버)
+> 주요 프로토콜 <br />
+- TCP : 안정적으로 확실하게 데이터를 전송하는 프로토콜
+- UDP : 데이터가 유실될 수 있지만 무조건 빠르게 전송하는 프로토콜
 <img width="600" alt="스크린샷 2024-03-10 오후 4 53 17" src="https://github.com/spdhsrnvl123/Study/assets/83896466/19c65ccb-0d4e-4784-ad2d-1999842a8007">
+
+> 결론 : 네트워크계층에서 데이터가 어떻게 목적지까지 찾아가는지 당담했다면 전송계층은 어떤 방식으로 데이터를 보내는가를 당담하는 계층이라고 보면된다.
 
 ### 네트워크 계층 - 3계층
 **IP주소**를 이용해서 통신, 전송 경로를 선택 어느 경로로 가는 것이 최선인지를 결정, 특정 네트워크를 찾아가는 역할
@@ -113,8 +109,35 @@ MAC주소를 이용해서 통신, 특정 네트워크에서 특정PC를 찾아�
 
 <img width="600" alt="스크린샷 2024-03-10 오후 4 25 52" src="https://github.com/spdhsrnvl123/Study/assets/83896466/7af1ec05-9feb-4f8d-ba43-142d5b2edcf9">
 
+#### 꼬임쌍 동선
+#### UTP
+<img width="600" alt="스크린샷 2024-03-10 오후 6 53 17" src="https://github.com/spdhsrnvl123/Study/assets/83896466/8700f13e-e3fd-4cab-a3d4-b20544e6c610">
+
+<img width="600" alt="스크린샷 2024-03-10 오후 6 29 21" src="https://github.com/spdhsrnvl123/Study/assets/83896466/5b488615-e080-4a20-aa7e-c891a85b2ff5">
+
+<img width="915" alt="스크린샷 2024-03-10 오후 6 30 33" src="https://github.com/spdhsrnvl123/Study/assets/83896466/7462077f-19f6-440b-af9f-46bd69dcd08d">
+
+#### 동축케이블
+#### 광섬유
+![image](https://github.com/spdhsrnvl123/Study/assets/83896466/66a86c0f-ab55-4042-9d0f-85d6966e4121)
+
 ## 데이터 전송 단위
+<img width="600" alt="스크린샷 2024-03-10 오후 6 17 53" src="https://github.com/spdhsrnvl123/Study/assets/83896466/535d3dcd-fb90-4bd6-9f41-c7a22fcbcd9f">
+
+<img width="600" alt="스크린샷 2024-03-10 오후 6 18 33" src="https://github.com/spdhsrnvl123/Study/assets/83896466/f7e9831f-f870-414f-995c-97fdca1ed126">
+
+
 ### 메시지
 ### 세그먼트
 ### 데이터그램
 ### 프레임
+
+## 접속 네트워크
+### 가정 접속
+### 기관 접속
+### 무선 접속
+![image](https://github.com/spdhsrnvl123/Study/assets/83896466/c5004720-6cea-4bdf-9ce1-deb83fe761b7)
+
+### 대역폭
+초당 전솔될 수 있는 최대량 <br />
+즉 쉽게 말하면 자동차가 다니는 도로의 폭이다. 2차선보다는 4차선 도로가 차가 많이 다닐 수 있는것 처럼
