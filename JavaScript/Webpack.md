@@ -44,3 +44,5 @@ output 은 번들링을 위치할 파일설정
 ```zsh
 npx webpack --entry ./src/index.js --output-path ./dist --mode development
 ```
+
+결론 : 웹팩은 여러개의 파일들을 하나의 파일로 묶어주는 모듈 번들러이다. 이러한 모듈번들러는 프론트엔드에서 서버로 요청할때 HTTP요청의 개수를 줄여주면서 퍼포먼스를 확장시키고 공백과 같은거를 줄이기 때문에 리소를 최적화한다.
