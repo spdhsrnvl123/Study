@@ -1,0 +1,119 @@
+subscribeWithSelector	특정 값 변화 감지
+persist	로컬/세션 스토리지 저장
+devtools	개발자 도구 연동
+
+json-server
+데이터가 리액트앱에 간주 되지 않도록 즉 리렌더링 되지 않도록 vite설정을 해주면 된다.
+
+json-server시작 
+`npx json-server ./src/server/db.json`
+
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  server:{
+    watch:{
+      ignored: ["**/server/**"]
+    }
+  }
+});
+
+vite설정파일인데 아래처럼 server를 설정해주면 Vite가 서버폴더 아래를 감지하지 않는다.
+즉 리렌더링 시키지 않는다.
+
+Tanstack Query
+
+const queryClient = new QueryClient(); - store이다.(API, Cache 등...)
+
+tanstack query설치시 아래 내용 초기 셋팅
+
+//main.tsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.tsx'
+import {BrowserRouter} from "react-router";
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById("root")!).render(
+  <BrowserRouter>
+  <QueryClientProvider client={queryClient}>
+    <App />
+  </QueryClientProvider>
+  </BrowserRouter>,
+);
+
+
+--
+
+tanstack-Query를 사용하지 않는다면 이렇게 isLoading, error처리도 따로 해줘야 됐다.
+
+import TodoEditor from "@/components/todo-list/todo-editor";
+import TodoItem from "@/components/todo-list/todo-item";
+import { API_URL } from "@/lib/constants";
+import type { Todo } from "@/types";
+import { useEffect, useState } from "react";
+
+async function fetchTodos(){
+  const response = await fetch(`${API_URL}/todos`);
+  if(!response.ok) throw new Error("Failed to fetch todos");
+  const data : Todo[] = await response.json();
+  return data;
+}
+
+export default function TodoListPage(){
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
+  const fetchData = async ()=>{
+    setIsLoading(true);
+    try {
+      const data = await fetchTodos();
+      setTodos(data);
+    } catch (err){
+      setError(error as any);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(()=>{
+    fetchData();
+    console.log(todos);
+  },[]);
+
+  useEffect(()=>{
+    console.log(todos);
+  }
+
+  return(
+    <div className="flex flex-col gap-5 p-5">
+      <h1 className="text-2xl font-bold">TodoList</h1>
+      <TodoEditor />
+      {/* {todos.map((todo)=> <TodoItem key={todo.id} {...todo} />)} */}
+    </div>
+  )
+}
+--
+tanstack-query는 기본적으로 자동 재시도 기능을 내장하고 있기 때문에 비동기 통신이 실패할 경우 여러번
+재요청을 하고 안됐을때 에러값을 반환한다.
+
+  const { data: todos, isLoading, error } = useQuery({
+    queryFn: fetchTodos,
+    queryKey: ["todos"],
+    retry: 0 //요청 재시도 0번 설정
+  });
+
