@@ -117,3 +117,82 @@ tanstack-query는 기본적으로 자동 재시도 기능을 내장하고 있기
     retry: 0 //요청 재시도 0번 설정
   });
 
+tanstack Query의 효능
+- 강력한 캐싱 기능을 이용해 앱을 최적화 할 수 있다.
+- 적절한 타이밍에 캐시 데이터를 갱신하거나 삭제할 수 있다.
+
+staleTime으로 직접 시간을 설정할 수 있다.
+fetch -> fresh -> stale
+    staleTime(Like. 유통기한)
+
+fetching ->-> stale
+특정 타이밍에 리페칭(데이터 다시 불러옴)
+데이터가 오래되면 리페칭됨 일종에 순환구조
+리페칭이 발생하는 특정 타이밍에는 어떤거가 있을까
+1. Mount: 이 캐시 데이터를 사용하는 컴포넌트가 마운트 되었을 떄
+2. WindowFocus: 사용자가 이 탭에 다시 돌아왔을 때
+3. Reconnect: 인터넷 연결이 끊어졌다가 다시 연결 되었을 때
+4. Interval: 특정 시간을 주기로
+
+-> 임의로 끄고 키고 할 수 있다.
+
+위에 4가지는 설정할 수 있음
+
+캐싱 메커니즘을 직접 살펴보기 위해서 택스택쿼리의 캐시들을 시각적으로 보여주는 도구인 택스택쿼리 DevTools라는 도구가 있다.
+설치
+npm i @tanstack/react-query-devtools
+
+사용
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.tsx'
+import {BrowserRouter} from "react-router";
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools"; //추가
+
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById("root")!).render(
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools /> //추가
+        <App />
+    </QueryClientProvider>
+  </BrowserRouter>,
+);
+
+tanstack-query Devtools에 Query Details에 상태를 보면 stale이라고 상태가 나와 있다.
+불러온지 얼마나 됐다고 상한상태로 나와있는 이유는 tanstack-query는 기본적으로 모든 캐시 데이터를 stale Time = 0초(기본)으로 설정되어있다.
+
+
+    refetchInterval: 1000,
+
+1초마다 데이터를 갱신하는 tanstack-query 옵션
+
+    refetchOnMount: false,
+
+Mount시점에서는 stale상태라도 변하지 않는 옵션(요청안함)
+
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchInterval: false
+
+다른 옵션
+
+    staleTime: 5000,
+데이터가 프레시한 상태에 있을 때만 유효하기 때문에 데이터가 인액티브 상태이 때만 동작하는 'gcTime'과는 완전히 별개의 상황에서 동작을 하게 된다.
+캐싱설정
+
+Tanstack-query의 stale데이터가 아애 사용되지 않는건 아니다. 왜냐하면 tanstack-query는 사용자들에게 로딩상태를 덜 보여주기 위해서 다른페이지를 갔다가 다시 현재페이지를 와도 로딩을 보여주는게 아니라 stale데이터를 보여준다. 단 새로고침을 하면 로딩상태가 보인다.
+
+inactive
+*캐시 데이터가 현재 사용되지 않는 상태
+= 많아서 좋을게 없음, 메모리 낭비로 이어질 수 있기 때문이다.
+inactive는 gcTime(Garbage Collecting Time)이 지나면 Deleted 상태로 전환되어서 메모리에서 완전히 삭제된다.
+tanstack-query : 오랫동안 사용하지 않는 데이터를 삭제함으로 메모리 상에서 정리해서 성능의 저하를 방지한다.
+
+gcTime
+    gcTime: 5000
+staleTime이 어떻게 정해져 있든 fresh한 데이터든 stale데이터든 inactive 상태가 되면 메모리 상에서 지워진다.
+
